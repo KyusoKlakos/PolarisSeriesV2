@@ -20,10 +20,17 @@ class DefaultController extends AbstractController
         ]);
     }
 
-     /**
-     * @Route("/terms", name="terms")
-     */
+    /**
+    * @Route("/terms", name="terms")
+    */
     public function terms(){
         return $this->render('front/default/terms.html.twig', []);
+    }
+
+    /**
+    * @Route("/twitch", name="twitch")
+    */
+    public function twitch(){
+        return $this->render('front/default/twitch.html.twig', []);
     }
 }
