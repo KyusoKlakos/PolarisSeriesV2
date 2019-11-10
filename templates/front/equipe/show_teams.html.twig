@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} - Les équipes{% endblock %}
+
+{% block body %}
+<div>
+    <h2 class="center-align">Les équipes</h2>
+
+    <div class="spacer-1"></div>
+
+    <div class="container hide-on-med-and-down">
+        <div style="display: flex; flex-wrap: wrap; justify-content: center">
+            {% for division in divisions %}
+            <div style="width: 40%; margin: 20px;" id="{{division.id}}">
+                <ul class="collection with-header">
+                    <li class="collection-header avatar">
+                        <img src={{asset('img/ranks/' ~division.code~ '.png')}} alt="" width="40px">
+                        <h4 style="display:inline-block">{{division.nom}}</h4>
+                    </li>
+                    {% for equipe in equipes %}
+                    {% if equipe.division.id == division.id %}
+                    <li class="collection-item">{{equipe.nom}}</li>
+                    {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+
+    <div class="container hide-on-large-only">
+        <div style="display: flex; flex-wrap: wrap; justify-content: center">
+            {% for division in divisions %}
+            <div style="width: 100%; margin: 20px;" id="{{division.id}}">
+                <ul class="collection with-header">
+                    <li class="collection-header avatar">
+                        <img src={{asset('/img/rank/'~division.code~'.png')}} alt="" width="40px">
+                        <h4 style="display:inline-block">{{division.nom}}</h4>
+                    </li>
+                    {% for equipe in equipes %}
+                    {% if equipe.division.id == division.id %}
+                    <li class="collection-item">{{equipe.nom}}</li>
+                    {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

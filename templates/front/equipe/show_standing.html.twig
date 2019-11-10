@@ -1,0 +1,92 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} - Classements{% endblock %}
+
+{% block css %}
+    <style>
+        .tabs-correct {
+            overflow-x: hidden !important;
+        }
+    </style>
+{% endblock %}
+
+{% block body %}
+{% set position = 0 %}
+
+    <div>
+        <h2 class="center-align">Classements</h2>
+
+        <div class="spacer-1"></div>
+
+
+        <div class="row">
+            <div class="col s12">
+                <ul class="tabs tabs-fixed-width tabs-correct">
+                    {% for division in divisions %}
+                        <li class="tab col s2"><a href="#{{ division.id }}">{{ division.nom }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% for division in divisions %}
+                <div id="{{ division.id }}" class="col s12">
+                    <table class="striped">
+                        <thead>
+                        <tr>
+                            <th><p class="">Rang</p></th>
+                            <th><p class="">Equipe</p></th>
+                            <th>V</th>
+                            <th>D</th>
+                            <th>J</th>
+                            <th>Cartes G-P-N</th>
+                            <th>Diff</th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+
+                        {% set diffEquipePrec = "" %}
+                        {% set winEquipePrec = "" %}
+                        {% for equipe in equipes %}
+                            {% if equipe.division.id == division.id %}
+                                {% set nbMatchs = equipe.victoires + equipe.defaites %}
+                                {% set diffEquipe = equipe.victoireMap - equipe.defaiteMap %}
+                                {% set position = position + 1 %}
+                                {% set winEquipe = equipe.victoires %}
+                                {% if diffEquipe == diffEquipePrec and winEquipePrec !="" and winEquipe == winEquipePrec %}
+                                    {% set position = position - 1 %}
+                                {% endif %}
+                                <tr>
+                                    <td><p class="">{{ position }}</p></td>
+                                    <td>
+                                        {{ equipe.nom }}
+                                    </td>
+                                    <td>{{ equipe.victoires }}</td>
+                                    <td>{{ equipe.defaites }}</td>
+                                    <td>{{ nbMatchs }}</td>
+                                    <td>{{ equipe.victoireMap }} - {{ equipe.defaiteMap }} - {{ equipe.nulMap }}</td>
+                                    <td>{% if diffEquipe >= 0 %}+{% endif %}{{ diffEquipe }}</td>
+                                </tr>
+                                {% set diffEquipePrec = diffEquipe %}
+                                {% set winEquipePrec = winEquipe %}
+                            {% endif %}
+                        {% endfor %}
+                        {% set position = 0 %}
+                        {% set diffEquipePrec = "" %}
+                        {% set winEquipePrec = "" %}
+                        </tbody>
+                    </table>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="spacer-2"></div>
+{% endblock %}
+
+{% block js %}
+    <script>
+        $(document).ready(function(){
+            $('ul.tabs').tabs();
+        });
+    </script>
+{% endblock %}

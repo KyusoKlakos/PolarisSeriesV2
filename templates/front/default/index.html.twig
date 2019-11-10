@@ -1,0 +1,266 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} - Home{% endblock %}
+
+{% block body %}
+<div class="counter_background">
+        <div class="container">
+            <div class="row center-align">
+                <div class="spacer-4"></div>
+                <img class="responsive-img" src="{{ asset('img/polaris.png') }}" alt="Logo Polaris Series">
+                <div class="spacer-3"></div>
+                <p id="subtitle" class="white-text center-align">Le championnat overwatch amateur européen sur PC</p>
+                <div class="spacer-1"></div>
+                <div class="spacer-3"></div>
+            </div>
+        </div>
+    </div>
+    <div class="transition"></div>
+
+    <!--   Promo Section   -->
+    <div class="spacer-2 hide-on-med-and-down"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col s0 m12 l6">
+                <div class="spacer-1"></div>
+                <h3>Un championnat pour vous</h3>
+                <p>Polaris Series a été créée afin que des équipes amateurs puissent ressentir l’excitation de la scène compétitive. Quand vous inscrivez votre équipe, nous calculerons son rang moyen pour vous organiser dans des divisions. De cette façon, vous ne vous mesurerez que contre des équipes d’un rang similaire. Il existe 5 divisions, du rang or au rang grand maître. Si vous vous sentez prêts à relever le défi, vous pouvez également vous inscrire pour une division au dessus de votre rang moyen.</p>
+                <p>Une fois enregistrée, votre équipe devra affronter les équipes de la même division. Chaque semaine un nouvel adversaire s'offre à vous. Vous devrez alors planifier la rencontre avec ce dernier dans la semaine et informer les membres du staff de la date que vous avez convenue. La confrontation se déroulera selon un système de quad map où tous les types de cartes seront joués. En cas d'égalité une cinquième carte du mode KOTH sera jouée afin de départager les équipes. L'ensemble des cinq cartes seront tirées au hasard à l'avance par les membres du staff. À la fin de la saison régulière, lorsque toute les équipes se sont rencontrées, les 4 meilleures équipes de chaque division s'affronteront pour être sacrées vainqueur de leur ligue.</p>
+                
+                
+                {# Afficher lor de la phase d'inscirption #}
+                {# <a href="https://discord.gg/C2RETG6" target="_blank" class="waves-effect waves-light btn green" ><img style="margin-right: 15px;" class='logo_battlenet' src="{{ asset("img/discord.png") }}" alt="Discord logo">{{ 'layout.menu.principal.inscription' | trans }}</a> #}
+                {# FIN #}
+            
+            </div>
+            <div class="col s0 m1 l1"></div>
+            <div class="col s12 m4 l5 offset-m3">
+                <div class="center-align valign-wrapper">
+                    <img class="genji" src="{{ asset('img/Genji_portrait.png') }}" alt="Genji">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="spacer-2"></div>
+
+
+    <div class="parallax-container" style="height: 350px;">
+        <div class="parallax">
+            <img src="{{ asset('img/map.png') }}" alt="European Map">
+        </div>
+
+        <div class="background_map">
+            <div class="container">
+                <div class="row">
+                    <div class="spacer-2"></div>
+                    <h2 class="center white-text">Saison 1</h2>
+                    <div class="frame">
+                        <ul class="slidee">
+                            <li><div style="text-align:center"><img src="{{ asset('img/timeline1_activated.png') }}" alt="Timeline completed"/><br/></div></li>
+                            <li><div style="text-align:center"><img src="{{ asset('img/timeline2_activated.png') }}" alt="Development completed"/><br/>Développement</div></li>
+                        <li><div style="text-align:center"><img src="{{ asset('img/timeline2_activated.png') }}" alt="Announcement"/><br/>Annonce</div></li>
+                            <li><div style="text-align:center"><img src="{{ asset('img/timeline2_activated.png') }}" alt="Registration"/><br/>Inscription</div></li>
+                            {% if numSemaine >= 1 %}
+                                <li><div style="text-align:center"><img src="{{ asset('img/timeline2_activated.png') }}" alt="Week 1"/><br/>Semaine 1</div></li>
+                            {% else %}
+                                <li><div style="text-align:center"><img src="{{ asset('img/timeline2.png') }}" alt="Week 1"/><br/>Semaine 1</div></li>
+                            {% endif %}
+                            {% if numSemaine >= 2 %}
+                                <li><div style="text-align:center"><img src="{{ asset('img/timeline2_activated.png') }}" alt="Week 2"/><br/>Semaine 2</div></li>
+                            {% else %}
+                                <li><div style="text-align:center"><img src="{{ asset('img/timeline2.png') }}" alt="Week 1"/><br/>Semaine 2</div></li>
+                            {% endif %}
+                            {% if numSemaine >= 3 %}
+                                <li><div style="text-align:center"><img src="{{ asset('img/timeline2_activated.png') }}" alt="Week 3"/><br/>Semaine 3</div></li>
+                            {% else %}
+                                <li><div style="text-align:center"><img src="{{ asset('img/timeline2.png') }}" alt="Week 3"/><br/>Semaine 3</div></li>
+                            {% endif %}
+                            {% if numSemaine >= 4 %}
+                                <li><div style="text-align:center"><img src="{{ asset('img/timeline2_activated.png') }}" alt="Week 4"/><br/>Semaine 4</div></li>
+                            {% else %}
+                                <li><div style="text-align:center"><img src="{{ asset('img/timeline2.png') }}" alt="Week 4"/><br/>Semaine 4</div></li>
+                            {% endif %}
+                            {% if numSemaine >= 5 %}
+                                <li><div style="text-align:center"><img src="{{ asset('img/timeline2_activated.png') }}" alt="Week 5"/><br/>Semaine 5</div></li>
+                            {% else %}
+                                <li><div style="text-align:center"><img src="{{ asset('img/timeline2.png') }}" alt="Week 5"/><br/>Semaine 5</div></li>
+                            {% endif %}
+                            {% if numSemaine >= 6 %}
+                                <li><div style="text-align:center"><img src="{{ asset('img/timeline2_activated.png') }}" alt="Week 6"/><br/>Semaine 6</div></li>
+                            {% else %}
+                                <li><div style="text-align:center"><img src="{{ asset('img/timeline2.png') }}" alt="Week 6"/><br/>Semaine 6</div></li>
+                            {% endif %}
+                            {% if numSemaine > 6 %}
+                                <li><div style="text-align:center"><img src="{{ asset('img/timeline2_activated.png') }}" alt="Playoffs"/><br/>Playoffs</div></li>
+                            {% else %}
+                            <li><div style="text-align:center"><img src="{{ asset('img/timeline2.png') }}" alt="Playoffs"/><br/>Playoffs</div></li>
+                            {% endif %}
+                            <li><div style="text-align:center"><img src="{{ asset('img/timeline2.png') }}" alt="Next Season"/><br/>Saison 2</div></li>
+                            <li><div style="text-align:center"><img src="{{ asset('img/timeline3.png') }}" alt="Timeline"/><br/></div></li>
+                        </ul>
+                    </div>
+                    <div class="controls center">
+                        <img class="scroll" src="{{ asset('img/scroll.png') }}" alt="Scroll icon">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="spacer-2"></div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col m3 right-align">
+                <div class="spacer-1"></div>
+                <img class="lucio hide-on-small-only" src="{{ asset('img/Lucio_portrait.png') }}" alt="Lucio">
+            </div>
+            <div class="col m1"></div>
+            <div class="col m8">
+                <h3>Créée par des joueurs, pour des joueurs</h3>
+                <p>Polaris Series vous est présentée par STE, une association à but non lucratif loi 1901. Cette association a vu le jour, lorsqu’un groupe d’amis a décidé qu'une structure était indispensable pour pouvoir progresser dans des conditions optimales avec un environnement adapté. Nous sommes donc avant tout des joueurs, et connaissons les difficultés auxquelles une équipe peut faire face comme planifier des scrims, des entraînements, etc. C’est en ayant en tête ces difficultés que nous avons réussi à rassembler une équipe soudée autour de ce projet qu'est devenu Polaris Series.</p>
+                <p>Malgré nos meilleurs efforts, nous sommes des humains. Savoir que vous êtes intéressés par notre projet est l’une des meilleures récompenses que vous puissiez nous donner. Par conséquent, si vous souhaitez nous contacter, que ce soit pour poser des questions, donner des suggestions ou simplement discuter, n’hésitez pas à nous rejoindre sur discord !</p>
+                <div class="spacer-1"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="spacer-3"></div>
+{% endblock %}
+
+{% block js %}
+    {% set start_at = numSemaine + 0 %}
+    <script type="text/javascript">
+        var slyelement = {
+            obj: {},
+            el: '.frame',
+            options: {
+                horizontal: 1,
+                itemNav: 'forceCentered',
+                smart: 1,
+                activateMiddle: 1,
+                activateOn: 'click',
+                mouseDragging: 1,
+                touchDragging: 1,
+                releaseSwing: 1,
+                startAt: {{start_at}},
+                scrollBy: 0,
+                speed:300,
+                elasticBounds: 1,
+                easing: 'easeOutExpo', // easeInOutElastic, easeOutBounce
+                dragHandle: 1,
+                dynamicHandle: 1,
+
+            }
+        };
+        $(function(){
+            slyelement.obj = new Sly($(slyelement.el), slyelement.options);
+
+            slyelement.obj.init();
+        });
+        $(window).resize(function(e) {
+            slyelement.obj.reload();
+        });
+        {# var ringer = {
+            countdown_to: "08/01/2017",
+            rings: {
+                '{{ 'index.countdown.jour' | trans }}': {
+                    s: 86400000, // mseconds in a day,
+                    max: 365
+                },
+                '{{ 'index.countdown.heure' | trans }}': {
+                    s: 3600000, // mseconds per hour,
+                    max: 24
+                },
+                '{{ 'index.countdown.minute' | trans }}': {
+                    s: 60000, // mseconds per minute
+                    max: 60
+                },
+                'SECONDES': {
+                    s: 1000,
+                    max: 60
+                },
+                'MICROSEC': {
+                    s: 10,
+                    max: 100
+                }
+            },
+            r_count: 3,
+            r_spacing: 10, // px
+            r_size: 100, // px
+            r_thickness: 8, // px
+            update_interval: 11, // ms
+            init: function () {
+                $r = ringer;
+                $r.cvs = document.createElement('canvas');
+                $r.size = {
+                    w: ($r.r_size + $r.r_thickness) * $r.r_count + ($r.r_spacing * ($r.r_count - 1)),
+                    h: ($r.r_size + $r.r_thickness)
+                };
+                $r.cvs.setAttribute('width', $r.size.w);
+                $r.cvs.setAttribute('height', $r.size.h);
+                $r.ctx = $r.cvs.getContext('2d');
+                $(".countdownwrap").append($r.cvs);
+                $r.cvs = $($r.cvs);
+                $r.ctx.textAlign = 'center';
+                $r.actual_size = $r.r_size + $r.r_thickness;
+                $r.countdown_to_time = new Date($r.countdown_to).getTime();
+                $r.cvs.css({width: $r.size.w + "px", height: $r.size.h + "px"});
+                $r.go();
+            },
+            ctx: null,
+            go: function () {
+                var idx = 0;
+                $r.time = (new Date().getTime()) - $r.countdown_to_time;
+                for (var r_key in $r.rings) $r.unit(idx++, r_key, $r.rings[r_key]);
+                setTimeout($r.go, $r.update_interval);
+            },
+            unit: function (idx, label, ring) {
+                var x, y, value, ring_secs = ring.s;
+                value = parseFloat($r.time / ring_secs);
+                $r.time -= Math.round(parseInt(value)) * ring_secs;
+                value = Math.abs(value);
+                x = ($r.r_size * .5 + $r.r_thickness * .5);
+                x += +(idx * ($r.r_size + $r.r_spacing + $r.r_thickness));
+                y = $r.r_size * .5;
+                y += $r.r_thickness * .5;
+                // calculate arc end angle
+                var degrees = 360 - (value / ring.max) * 360.0;
+                var endAngle = degrees * (Math.PI / 180);
+                $r.ctx.save();
+                $r.ctx.translate(x, y);
+                $r.ctx.clearRect($r.actual_size * -0.5, $r.actual_size * -0.5, $r.actual_size, $r.actual_size);
+                // first circle
+                $r.ctx.strokeStyle = "rgba(128,128,128,0.2)";
+                $r.ctx.beginPath();
+                $r.ctx.arc(0, 0, $r.r_size / 2, 0, 2 * Math.PI, 2);
+                $r.ctx.lineWidth = $r.r_thickness;
+                $r.ctx.stroke();
+                // second circle
+                $r.ctx.strokeStyle = "#FFA81E";
+                $r.ctx.beginPath();
+                $r.ctx.arc(0, 0, $r.r_size / 2, 0, endAngle, 1);
+                $r.ctx.lineWidth = $r.r_thickness;
+                $r.ctx.stroke();
+                // label
+                $r.ctx.fillStyle = "#FFFFFF";
+                $r.ctx.font = '12px Roboto';
+                $r.ctx.fillText(label, 0, 23);
+                $r.ctx.fillText(label, 0, 23);
+                $r.ctx.font = 'bold 40px Roboto';
+                $r.ctx.fillText(Math.floor(value), 0, 10);
+                $r.ctx.restore();
+            }
+        }
+        ringer.init(); #}
+
+
+        window.setTimeout(function () {
+            $( ".alertmsg" ).fadeOut( "slow" );
+        }, 1500);
+    </script>
+
+{% endblock %}
+

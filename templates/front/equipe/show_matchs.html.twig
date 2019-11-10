@@ -1,0 +1,564 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} - Liste des rencontres{% endblock %}
+
+{% block css %}
+<style>
+    .matchRow {
+        margin: 25px 0 40px 0 !important;
+        border-bottom: solid 1px #e1e1e1;
+        padding-bottom: 25px;
+    }
+
+    .matchRowDom {
+        padding-right: 15px;
+        font-family: 'bignoodletoo';
+        font-size: 25px;
+    }
+
+    .matchRowVS {
+        margin: 20px 0;
+    }
+
+    .matchRowVS img {
+        width: 30px;
+        height: auto;
+    }
+
+    .capitaine {
+        font-size: 15px;
+        color: #B1B1B1;
+        margin-left: 7px;
+        margin-right: 7px;
+    }
+
+    .imgLogo {
+        width: 24px;
+        height: auto;
+    }
+
+    .matchRowExt {
+        padding-left: 15px;
+        font-family: 'bignoodletoo';
+        font-size: 25px;
+    }
+
+    .containerMap {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .itemMap {
+        margin: 20px;
+    }
+
+    .tiebreak {
+        font-family: 'koverwatch';
+        margin-top: 1px;
+        text-align: right;
+        font-size: 1.1em;
+        color: #B1B1B1;
+        padding-right: 1em;
+    }
+
+    .cardtie {
+        margin-bottom: 3px;
+    }
+
+    #next-week {
+        display: none;
+    }
+
+    .nextweek {
+        position: absolute;
+        right: 10px;
+        top: 35%;
+        height: 30%;
+        margin: auto;
+        border: solid #c5c5c5 1px;
+        border-radius: 15px;
+        display: inline-flex;
+        vertical-align: middle;
+        align-items: center;
+        background-color: #FA9C1E;
+    }
+
+    .nextweek:hover {
+        cursor: pointer;
+    }
+
+    .nextweek i{
+        font-size: 3em;
+        color: white !important;
+        vertical-align: middle !important;
+    }
+
+    .currentweek {
+        position: absolute;
+        left: 10px;
+        top: 35%;
+        height: 30%;
+        border: solid #c5c5c5 1px;
+        border-radius: 15px;
+        display: inline-flex;
+        vertical-align: middle;
+        align-items: center;
+        background-color: #FA9C1E;
+    }
+
+    .currentweek:hover {
+        cursor: pointer;
+    }
+
+    .currentweek i{
+        font-size: 3em;
+        color: white !important;
+        vertical-align: middle !important;
+    }
+
+    .tabs-correct {
+        overflow-x: hidden !important;
+    }
+</style>
+{% endblock %}
+
+{% block body %}
+<div>
+    <div id="current-week">
+        <div class="row" style="position: relative;">
+            {% if numSemaine < nbSemaine %}
+            <div id="btn_nextweek" class="nextweek hoverable hide-on-small-only">
+                <i class="material-icons">navigate_next</i>
+            </div>
+            <div id="btn_nextweek_small" class="hide-on-med-and-up" style="text-align: right"> 
+                <a class="btn-floating" style="margin-right:10px; margin-top:10px; background-color: #FA9C1E"><i class="material-icons">navigate_next</i></a>
+            </div>
+            {% endif %}
+            <h2 class="center-align">Rencontres</h2>
+            <p class="center-align">Du 28/10 au 03/11</p>
+            <div class="row hide-on-med-and-down">
+                {% for mapPool in mapPools %}
+                    {% if mapPool.numSemaine == numSemaine %}
+                    <div class="containerMap">
+                        <div class="itemMap">
+                            <div class="card_map card1 z-depth-2">
+                                <img data-map="{{ mapPool.map1.nom }}" src="{{asset(mapPool.map1.image)}}">
+                                <p>{{ mapPool.map1.nom }}</p>
+                            </div>
+                        </div>
+                        <div class="itemMap">
+                            <div class="card_map card1 z-depth-2">
+                                <img data-map="{{ mapPool.map2.nom }}" src="{{asset(mapPool.map2.image)}}">
+                                <p>{{ mapPool.map2.nom }}</p>
+                            </div>
+                        </div>
+                        <div class="itemMap">
+                            <div class="card_map card1 z-depth-2">
+                                <img data-map="{{ mapPool.map3.nom }}" src="{{asset(mapPool.map3.image)}}">
+                                <p>{{ mapPool.map3.nom }}</p>
+                            </div>
+                        </div>
+                        <div class="itemMap">
+                            <div class="card_map card1 z-depth-2">
+                                <img data-map="{{ mapPool.map4.nom }}" src="{{asset(mapPool.map4.image)}}">
+                                <p>{{ mapPool.map4.nom }}</p>
+                            </div>
+                        </div>
+                        <div class="itemMap valign-wrapper">
+                            <div style="font-family: 'koverwatch'; font-size: 2em;">-</div>
+                        </div>
+                        <div class="itemMap">
+                            <div class="card_map card1 z-depth-2 cardtie">
+                                <img data-map="{{ mapPool.tieBreaker.nom }}" src="{{asset(mapPool.tieBreaker.image)}}">
+                                <p>{{ mapPool.tieBreaker.nom }}</p>
+                            </div>
+                            <div class="tiebreak">Tie Breaker</div>
+                        </div>
+                    </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+
+
+
+
+            <div class="col m10 offset-m1 s12">
+                <ul class="tabs tabs-fixed-width tabs-correct">
+                    {% for division in divisions %}
+                    <li class="tab col s3">
+                        <a href="#{{ division.id }}">{{ division.nom }}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% for division in divisions %}
+            <div id="{{ division.id }}" class="col s12">
+                {% for rencontre in rencontres %}
+                {% if rencontre.equipeDom.division == division and rencontre.numSemaine == numSemaine %}
+                <div class="container">
+                    <div class="row matchRow">
+
+                        {# Affichage sur grand écran #}
+                        <div class="hide-on-med-and-down">
+                            <div class="col s5 right-align">
+                                <div class="col s8">
+                                    <div class="right-align">
+                                        <span class="capitaine">{{rencontre.equipeDom.capitaine}}</span>
+                                        <img style="vertical-align:middle" src="{{asset('img/bnet.png')}}" width="24">
+                                    </div>
+                                    <br>
+                                    <div class="right-align">
+                                        <span class="capitaine righ-align">{{rencontre.equipeDom.discord | raw}}</span>
+                                        <img style="vertical-align:middle" src="{{asset('img/discordIcon.png')}}" width="24">
+                                    </div>
+                                </div>
+                                <div class="col s4 matchRowDom">
+                                    {{ rencontre.equipeDom.nom }}
+                                </div>
+                            </div>
+
+                            <div class="col s2 center-align matchRowVS">
+                                <img src="{{ asset('img/vs.png')}}" />
+                            </div>
+
+                            <div class="col s5 left-align">
+                                <div class="col s4 matchRowExt">
+                                    {{ rencontre.equipeExt.nom }}
+                                </div>
+                                <div class="col s8 right-align">
+                                    <div class="valign-wrapper">
+                                        <img src="{{asset('img/bnet.png')}}" width="24">
+                                        <span class="capitaine">{{rencontre.equipeExt.capitaine}}</span>
+                                    </div>
+                                    <br>
+                                    <div class="valign-wrapper">
+                                        <img src="{{asset('img/discordIcon.png')}}" width="24">
+                                        <span class="capitaine">{{rencontre.equipeExt.discord | raw}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {# Affichage sur petit écran #}
+                        <div class="hide-on-large-only">
+                            <div class="col s12">
+                                <div class="col s6 matchRowDom right-align">
+                                    {{ rencontre.equipeDom.nom }}
+                                </div>
+                                <div class="col s6 left-align">
+                                    <div>
+                                        <img style="vertical-align:middle" src="{{asset('img/bnet.png')}}" width="24">
+                                        <span class="capitaine">{{rencontre.equipeDom.capitaine}}</span>
+                                    </div>
+                                    <div>
+                                        <img style="vertical-align:middle" src="{{asset('img/discordIcon.png')}}" width="24">
+                                        <span class="capitaine righ-align">{{rencontre.equipeDom.discord | raw}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col s12 center-align matchRowVS">
+                                <img src="{{ asset('img/vs.png')}}" />
+                            </div>
+                            <div class="spacer-1"></div>
+                            <div class="col s12">
+                                <div class="col s6 matchRowExt right-align">
+                                    {{ rencontre.equipeExt.nom }}
+                                </div>
+                                <div class="col s6 left-align">
+                                    <div>
+                                        <img style="vertical-align:middle" src="{{asset('img/bnet.png')}}" width="24">
+                                        <span class="capitaine">{{rencontre.equipeExt.capitaine}}</span>
+                                    </div>
+                                    <div>
+                                        <img style="vertical-align:middle" src="{{asset('img/discordIcon.png')}}" width="24">
+                                        <span class="capitaine righ-align">{{rencontre.equipeExt.discord | raw}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+            {% endfor %}
+        </div>
+        <div class="row hide-on-large-only">
+            {% for mapPool in mapPools %}
+            {% if mapPool.numSemaine == numSemaine %}
+            <div class="containerMap">
+                <div class="itemMap">
+                    <div class="card_map card1 z-depth-2">
+                        <img data-map="{{ mapPool.map1.nom }}" src="{{asset(mapPool.map1.image)}}">
+                        <p>{{ mapPool.map1.nom }}</p>
+                    </div>
+                </div>
+                <div class="itemMap">
+                    <div class="card_map card1 z-depth-2">
+                        <img data-map="{{ mapPool.map2.nom }}" src="{{asset(mapPool.map2.image)}}">
+                        <p>{{ mapPool.map2.nom }}</p>
+                    </div>
+                </div>
+                <div class="itemMap">
+                    <div class="card_map card1 z-depth-2">
+                        <img data-map="{{ mapPool.map3.nom }}" src="{{asset(mapPool.map3.image)}}">
+                        <p>{{ mapPool.map3.nom }}</p>
+                    </div>
+                </div>
+                <div class="itemMap">
+                    <div class="card_map card1 z-depth-2">
+                        <img data-map="{{ mapPool.map4.nom }}" src="{{asset(mapPool.map4.image)}}">
+                        <p>{{ mapPool.map4.nom }}</p>
+                    </div>
+                </div>
+                <div class="itemMap">
+                    <div class="card_map card1 z-depth-2 cardtie">
+                        <img data-map="{{ mapPool.tieBreaker.nom }}" src="{{asset(mapPool.tieBreaker.image)}}">
+                        <p>{{ mapPool.tieBreaker.nom }}</p>
+                    </div>
+                    <div class="tiebreak">Tie Breaker</div>
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+
+
+
+
+
+    {% if numSemaine < nbSemaine %}
+    <div id="next-week">
+        <div class="row" style="position: relative;">
+            <div id="btn_currentweek" class="currentweek hoverable hide-on-small-only">
+                <i class="material-icons">navigate_before</i>
+            </div>
+            <div id="btn_currentweek_small" class="hide-on-med-and-up" style="text-align: left"> 
+                <a class="btn-floating" style="margin-left:10px; margin-top:10px; background-color: #FA9C1E"><i class="material-icons">navigate_before</i></a>
+            </div>
+            <h2 class="center-align">{{ 'rencontre.nextTitre' | trans }}</h2>
+            <p class="center-align">Du 04/10 au 10/11</p>
+            <div class="row hide-on-med-and-down">
+                {% for mapPool in mapPools %}
+                    {% if mapPool.numSemaine == numSemaine + 1 %}
+                    <div class="containerMap">
+                        <div class="itemMap">
+                            <div class="card_map card1 z-depth-2">
+                                <img data-map="{{ mapPool.map1.nom }}" src="{{asset(mapPool.map1.image)}}">
+                                <p>{{ mapPool.map1.nom }}</p>
+                            </div>
+                        </div>
+                        <div class="itemMap">
+                            <div class="card_map card1 z-depth-2">
+                                <img data-map="{{ mapPool.map2.nom }}" src="{{asset(mapPool.map2.image)}}">
+                                <p>{{ mapPool.map2.nom }}</p>
+                            </div>
+                        </div>
+                        <div class="itemMap">
+                            <div class="card_map card1 z-depth-2">
+                                <img data-map="{{ mapPool.map3.nom }}" src="{{asset(mapPool.map3.image)}}">
+                                <p>{{ mapPool.map3.nom }}</p>
+                            </div>
+                        </div>
+                        <div class="itemMap">
+                            <div class="card_map card1 z-depth-2">
+                                <img data-map="{{ mapPool.map4.nom }}" src="{{asset(mapPool.map4.image)}}">
+                                <p>{{ mapPool.map4.nom }}</p>
+                            </div>
+                        </div>
+                        <div class="itemMap valign-wrapper">
+                            <div style="font-family: 'koverwatch'; font-size: 2em;">-</div>
+                        </div>
+                        <div class="itemMap">
+                            <div class="card_map card1 z-depth-2 cardtie">
+                                <img data-map="{{ mapPool.tieBreaker.nom }}" src="{{asset(mapPool.tieBreaker.image)}}">
+                                <p>{{ mapPool.tieBreaker.nom }}</p>
+                            </div>
+                            <div class="tiebreak">Tie Breaker</div>
+                        </div>
+                    </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+
+
+
+
+
+            <div class="col m10 offset-m1 s12">
+                <ul class="tabs tabs-fixed-width tabs-correct">
+                    {% for division in divisions %}
+                    <li class="tab col s3">
+                        <a href="#{{ division.id }}_nw">{{ division.nom }}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% for division in divisions %}
+            <div id="{{ division.id }}_nw" class="col s12">
+                {% for rencontre in rencontres %}
+                {% if rencontre.equipeDom.division == division and rencontre.numSemaine == numSemaine + 1 %}
+                <div class="container">
+                    <div class="row matchRow">
+
+                        {# Affichage sur grand écran #}
+                        <div class="hide-on-med-and-down">
+                            <div class="col s5 right-align">
+                                <div class="col s8">
+                                    <div class="right-align">
+                                        <span class="capitaine">{{rencontre.equipeDom.capitaine}}</span>
+                                        <img style="vertical-align:middle" src="{{asset('img/bnet.png')}}" width="24">
+                                    </div>
+                                    <br>
+                                    <div class="right-align">
+                                        <span class="capitaine righ-align">{{rencontre.equipeDom.discord | raw}}</span>
+                                        <img style="vertical-align:middle" src="{{asset('img/discordIcon.png')}}" width="24">
+                                    </div>
+                                </div>
+                                <div class="col s4 matchRowDom">
+                                    {{ rencontre.equipeDom.nom }}
+                                </div>
+                            </div>
+
+                            <div class="col s2 center-align matchRowVS">
+                                <img src="{{ asset('img/vs.png')}}" />
+                            </div>
+
+                            <div class="col s5 left-align">
+                                <div class="col s4 matchRowExt">
+                                    {{ rencontre.equipeExt.nom }}
+                                </div>
+                                <div class="col s8 right-align">
+                                    <div class="valign-wrapper">
+                                        <img src="{{asset('img/bnet.png')}}" width="24">
+                                        <span class="capitaine">{{rencontre.equipeExt.capitaine}}</span>
+                                    </div>
+                                    <br>
+                                    <div class="valign-wrapper">
+                                        <img src="{{asset('img/discordIcon.png')}}" width="24">
+                                        <span class="capitaine">{{rencontre.equipeExt.discord | raw}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {# Affichage sur petit écran #}
+                        <div class="hide-on-large-only">
+                            <div class="col s12">
+                                <div class="col s6 matchRowDom right-align">
+                                    {{ rencontre.equipeDom.nom }}
+                                </div>
+                                <div class="col s6 left-align">
+                                    <div>
+                                        <img style="vertical-align:middle" src="{{asset('img/bnet.png')}}" width="24">
+                                        <span class="capitaine">{{rencontre.equipeDom.capitaine}}</span>
+                                    </div>
+                                    <div>
+                                        <img style="vertical-align:middle" src="{{asset('img/discordIcon.png')}}" width="24">
+                                        <span class="capitaine righ-align">{{rencontre.equipeDom.discord | raw}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col s12 center-align matchRowVS">
+                                <img src="{{ asset('img/vs.png')}}" />
+                            </div>
+                            <div class="spacer-1"></div>
+                            <div class="col s12">
+                                <div class="col s6 matchRowExt right-align">
+                                    {{ rencontre.equipeExt.nom }}
+                                </div>
+                                <div class="col s6 left-align">
+                                    <div>
+                                        <img style="vertical-align:middle" src="{{asset('img/bnet.png')}}" width="24">
+                                        <span class="capitaine">{{rencontre.equipeExt.capitaine}}</span>
+                                    </div>
+                                    <div>
+                                        <img style="vertical-align:middle" src="{{asset('img/discordIcon.png')}}" width="24">
+                                        <span class="capitaine righ-align">{{rencontre.equipeExt.discord | raw}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                {% endfor %}
+            </div>
+            {% endfor %}
+        </div>
+        <div class="row hide-on-large-only">
+            {% for mapPool in mapPools %}
+            {% if mapPool.numSemaine == numSemaine + 1 %}
+            <div class="containerMap">
+                <div class="itemMap">
+                    <div class="card_map card1 z-depth-2">
+                        <img data-map="{{ mapPool.map1.nom }}" src="{{asset(mapPool.map1.image)}}">
+                        <p>{{ mapPool.map1.nom }}</p>
+                    </div>
+                </div>
+                <div class="itemMap">
+                    <div class="card_map card1 z-depth-2">
+                        <img data-map="{{ mapPool.map2.nom }}" src="{{asset(mapPool.map2.image)}}">
+                        <p>{{ mapPool.map2.nom }}</p>
+                    </div>
+                </div>
+                <div class="itemMap">
+                    <div class="card_map card1 z-depth-2">
+                        <img data-map="{{ mapPool.map3.nom }}" src="{{asset(mapPool.map3.image)}}">
+                        <p>{{ mapPool.map3.nom }}</p>
+                    </div>
+                </div>
+                <div class="itemMap">
+                    <div class="card_map card1 z-depth-2">
+                        <img data-map="{{ mapPool.map4.nom }}" src="{{asset(mapPool.map4.image)}}">
+                        <p>{{ mapPool.map4.nom }}</p>
+                    </div>
+                </div>
+                <div class="itemMap">
+                    <div class="card_map card1 z-depth-2 cardtie">
+                        <img data-map="{{ mapPool.tieBreaker.nom }}" src="{{asset(mapPool.tieBreaker.image)}}">
+                        <p>{{ mapPool.tieBreaker.nom }}</p>
+                    </div>
+                    <div class="tiebreak">Tie Breaker</div>
+                </div>
+            </div>
+            {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block js %}
+<script>
+    $(document).ready(function() {
+        $("#btn_nextweek").click(function(){
+            $("#current-week").hide();
+            $("#next-week").show();
+            $('ul.tabs').tabs();
+        });
+
+        $("#btn_nextweek_small").click(function(){
+            $("#current-week").hide();
+            $("#next-week").show();
+            $('ul.tabs').tabs();
+        });
+
+        $("#btn_currentweek").click(function(){
+            $("#next-week").hide();
+            $("#current-week").show();
+            $('ul.tabs').tabs();
+        });
+
+        $("#btn_currentweek_small").click(function(){
+            $("#next-week").hide();
+            $("#current-week").show();
+            $('ul.tabs').tabs();
+        });
+    });
+</script>
+{% endblock %}
