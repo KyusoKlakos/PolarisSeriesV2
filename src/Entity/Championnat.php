@@ -32,6 +32,16 @@ class Championnat
      */
     private $nbSemaine;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $datesSemaines;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $datesNextSemaines;
+
 
 
     /**
@@ -91,6 +101,30 @@ class Championnat
     public function setNbSemaine(int $nbSemaine)
     {
         $this->nbSemaine = $nbSemaine;
+
+        return $this;
+    }
+
+    public function getDatesSemaines(): ?string
+    {
+        return $this->datesSemaines;
+    }
+
+    public function setDatesSemaines(?string $datesSemaines): self
+    {
+        $this->datesSemaines = $datesSemaines;
+
+        return $this;
+    }
+
+    public function getDatesNextSemaines(): ?string
+    {
+        return $this->datesNextSemaines;
+    }
+
+    public function setDatesNextSemaines(?string $datesNextSemaines): self
+    {
+        $this->datesNextSemaines = $datesNextSemaines;
 
         return $this;
     }

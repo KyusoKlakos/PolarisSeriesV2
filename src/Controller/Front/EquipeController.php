@@ -51,7 +51,7 @@ class EquipeController extends AbstractController
     }
 
     /**
-    * @Route("/matchs", name="show_renc")
+    * @Route("/meetings", name="show_renc")
     */
     public function match(){
         $em = $this->getDoctrine()->getManager();
@@ -59,13 +59,17 @@ class EquipeController extends AbstractController
         $divisions = $em->getRepository(Division::class)->findDivAvecEquipe();
         $numSemaine = $em->getRepository(Championnat::class)->findAll()[0]->getSemaine();
         $nbSemaine = $em->getRepository(Championnat::class)->findAll()[0]->getNbSemaine();
+        $datesSemaine = $em->getRepository(Championnat::class)->findAll()[0]->getDatesSemaines();
+        $datesNextSemaine = $em->getRepository(Championnat::class)->findAll()[0]->getDatesNextSemaines();
         $mapPools = $em->getRepository(MapPool::class)->findAll();
         return $this->render('front/equipe/show_matchs.html.twig', [
             'rencontres'=>$rencontres,
             'divisions'=>$divisions,
             'mapPools'=>$mapPools,
             'numSemaine'=>$numSemaine,
-            'nbSemaine'=>$nbSemaine
+            'nbSemaine'=>$nbSemaine,
+            'datesSemaine'=>$datesSemaine,
+            'datesNextSemaine'=>$datesNextSemaine
         ]);
     }
 }

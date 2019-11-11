@@ -135,8 +135,8 @@
                 <a class="btn-floating" style="margin-right:10px; margin-top:10px; background-color: #FA9C1E"><i class="material-icons">navigate_next</i></a>
             </div>
             {% endif %}
-            <h2 class="center-align">Rencontres</h2>
-            <p class="center-align">Du 28/10 au 03/11</p>
+            <h2 class="center-align">Rencontres de la semaine</h2>
+            <p class="center-align">{{ datesSemaine }}</p>
             <div class="row hide-on-med-and-down">
                 {% for mapPool in mapPools %}
                     {% if mapPool.numSemaine == numSemaine %}
@@ -339,8 +339,8 @@
             <div id="btn_currentweek_small" class="hide-on-med-and-up" style="text-align: left"> 
                 <a class="btn-floating" style="margin-left:10px; margin-top:10px; background-color: #FA9C1E"><i class="material-icons">navigate_before</i></a>
             </div>
-            <h2 class="center-align">{{ 'rencontre.nextTitre' | trans }}</h2>
-            <p class="center-align">Du 04/10 au 10/11</p>
+            <h2 class="center-align">Rencontres de la semaine prochaine</h2>
+            <p class="center-align">{{ datesNextSemaine }}</p>
             <div class="row hide-on-med-and-down">
                 {% for mapPool in mapPools %}
                     {% if mapPool.numSemaine == numSemaine + 1 %}
