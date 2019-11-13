@@ -21,9 +21,11 @@ class EquipeController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $equipes = $em->getRepository(Equipe::class)->findAll();
         $divisions = $em->getRepository(Division::class)->findDivAvecEquipe();
+        $rencontres = $em->getRepository(Rencontre::class)->findAll();
         return $this->render('front/equipe/show_teams.html.twig', [
             'equipes'=>$equipes,
-            'divisions'=>$divisions
+            'divisions'=>$divisions,
+            'rencontres'=>$rencontres
         ]);
     }
 

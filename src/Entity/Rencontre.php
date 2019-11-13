@@ -36,6 +36,28 @@ class Rencontre
     private $numSemaine;
 
     /**
+     * @ORM\Column(type="boolean")
+     */
+    private $jouer = false;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $victoire_dom;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $score_dom;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $score_ext;
+
+    
+
+    /**
      * Get id
      *
      * @return int
@@ -91,5 +113,53 @@ class Rencontre
     public function setNumSemaine($numSemaine)
     {
         $this->numSemaine = $numSemaine;
+    }
+
+    public function getJouer(): ?bool
+    {
+        return $this->jouer;
+    }
+
+    public function setJouer(bool $jouer): self
+    {
+        $this->jouer = $jouer;
+
+        return $this;
+    }
+
+    public function getVictoireDom(): ?bool
+    {
+        return $this->victoire_dom;
+    }
+
+    public function setVictoireDom(?bool $victoire_dom): self
+    {
+        $this->victoire_dom = $victoire_dom;
+
+        return $this;
+    }
+
+    public function getScoreDom(): ?int
+    {
+        return $this->score_dom;
+    }
+
+    public function setScoreDom(?int $score_dom): self
+    {
+        $this->score_dom = $score_dom;
+
+        return $this;
+    }
+
+    public function getScoreExt(): ?int
+    {
+        return $this->score_ext;
+    }
+
+    public function setScoreExt(int $score_ext): self
+    {
+        $this->score_ext = $score_ext;
+
+        return $this;
     }
 }

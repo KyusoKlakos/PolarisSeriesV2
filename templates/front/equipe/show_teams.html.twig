@@ -2,8 +2,25 @@
 
 {% block title %} - Les équipes{% endblock %}
 
+{% block css %}
+<style>
+    .flex-history{
+        display: flex;
+    }
+
+    .flex-history *{
+        margin: 10px;
+    }
+
+    .pointer{
+        cursor: pointer;
+    }
+</style>
+{% endblock %}
+
 {% block body %}
 <div>
+
     <h2 class="center-align">Les équipes</h2>
 
     <div class="spacer-1"></div>
@@ -14,12 +31,29 @@
             <div style="width: 40%; margin: 20px;" id="{{division.id}}">
                 <ul class="collection with-header">
                     <li class="collection-header avatar">
-                        <img src={{asset('img/ranks/' ~division.code~ '.png')}} alt="" width="40px">
+                        <img src={{ asset('img/ranks/' ~division.code~ '.png') }} alt="" width="40px">
                         <h4 style="display:inline-block">{{division.nom}}</h4>
                     </li>
                     {% for equipe in equipes %}
                     {% if equipe.division.id == division.id %}
-                    <li class="collection-item">{{equipe.nom}}</li>
+                    <li class="collection-item">
+                        <span>{{equipe.nom}}</span>
+                        <a id="{{ equipe.id }}-click" class="pointer"><span class="new badge" data-badge-caption="Historique des matchs"></span></a>
+                    </li>
+                    <div id="{{ equipe.id }}-history">
+                        {% for rencontre in rencontres %}
+                            {% if rencontre.jouer %}
+                                {% if rencontre.equipeDom.id == equipe.id %}
+                                    <div class="flex-history"><img src="{{ asset('img/vs.png') }}" width="20px"> <span>{{ rencontre.equipeExt.nom }} - {% if rencontre.victoireDom %} Victoire {% else %} Défaite {% endif %} {{ rencontre.scoreDom }}-{{ rencontre.scoreExt }} </span> </div>
+                                {% endif %}
+                                {% if rencontre.equipeExt.id == equipe.id %}
+                                    <div class="flex-history">
+                                        <img src="{{ asset('img/vs.png') }}" width="20px"> <span> {{ rencontre.equipeDom.nom }}  - {% if rencontre.victoireDom %} Défaite {% else %} Victoire {% endif %} {{ rencontre.scoreExt }}-{{ rencontre.scoreDom }}</span>
+                                    </div>
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                    </div>
                     {% endif %}
                     {% endfor %}
                 </ul>
@@ -40,7 +74,24 @@
                     </li>
                     {% for equipe in equipes %}
                     {% if equipe.division.id == division.id %}
-                    <li class="collection-item">{{equipe.nom}}</li>
+                    <li class="collection-item">
+                        <span>{{equipe.nom}}</span>
+                        <a id="{{ equipe.id }}-click-small" class="pointer"><span class="new badge" data-badge-caption="Historique des matchs"></span></a>
+                    </li>
+                    <div id="{{ equipe.id }}-history-small">
+                        {% for rencontre in rencontres %}
+                            {% if rencontre.jouer %}
+                                {% if rencontre.equipeDom.id == equipe.id %}
+                                    <div class="flex-history"><img src="{{ asset('img/vs.png') }}" width="20px"> <span>{{ rencontre.equipeExt.nom }} - {% if rencontre.victoireDom %} Victoire {% else %} Défaite {% endif %} {{ rencontre.scoreDom }}-{{ rencontre.scoreExt }} </span> </div>
+                                {% endif %}
+                                {% if rencontre.equipeExt.id == equipe.id %}
+                                    <div class="flex-history">
+                                        <img src="{{ asset('img/vs.png') }}" width="20px"> <span> {{ rencontre.equipeDom.nom }}  - {% if rencontre.victoireDom %} Défaite {% else %} Victoire {% endif %} {{ rencontre.scoreExt }}-{{ rencontre.scoreDom }}</span>
+                                    </div>
+                                {% endif %}
+                            {% endif %}
+                        {% endfor %}
+                    </div>
                     {% endif %}
                     {% endfor %}
                 </ul>
@@ -49,4 +100,58 @@
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block js %}
+<script>
+    $(document).ready(function() {
+        {% for equipe in equipes %}
+            $("#" + {{ equipe.id }} + "-history").hide();
+             $("#" + {{ equipe.id }} + "-history-small").hide();
+
+            if($("#" + {{ equipe.id }} + "-history").children().length > 0){
+                $("#" + {{ equipe.id }} + "-history").append('<hr width="100%" color="#e0e0e0"> ');
+            }
+
+            if($("#" + {{ equipe.id }} + "-history-small").children().length > 0){
+                $("#" + {{ equipe.id }} + "-history-small").append('<hr width="100%" color="#e0e0e0"> ');
+            }
+
+            $("#" + {{ equipe.id }} + "-click").click(function(){
+                if($("#" + {{ equipe.id }} + "-history").is(":visible")){
+                    $("#" + {{ equipe.id }} + "-history").slideUp();
+                }
+                else{
+                    $("#" + {{ equipe.id }} + "-history").slideDown();
+                }
+
+                {% for e in equipes %}
+                    {% if e.id != equipe.id %}
+                        if($("#" + {{ e.id }} + "-history").is(":visible")){
+                            $("#" + {{ e.id }} + "-history").slideUp();
+                        }
+                    {% endif %}
+                {% endfor %}
+
+            });
+
+            $("#" + {{ equipe.id }} + "-click-small").click(function(){
+                if($("#" + {{ equipe.id }} + "-history-small").is(":visible")){
+                    $("#" + {{ equipe.id }} + "-history-small").slideUp();
+                }
+                else{
+                    $("#" + {{ equipe.id }} + "-history-small").slideDown();
+                }
+
+                {% for e in equipes %}
+                    {% if e.id != equipe.id %}
+                        if($("#" + {{ e.id }} + "-history-small").is(":visible")){
+                            $("#" + {{ e.id }} + "-history-small").slideUp();
+                        }
+                    {% endif %}
+                {% endfor %}
+            });
+        {% endfor %}
+    });
+</script>
 {% endblock %}
