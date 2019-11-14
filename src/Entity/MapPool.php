@@ -41,6 +41,31 @@ class MapPool
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Map")
      */
+    private $map5;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Map")
+     */
+    private $map6;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Map")
+     */
+    private $map7;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Map")
+     */
+    private $map8;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Map")
+     */
+    private $map9;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Map")
+     */
     private $tieBreaker;
 
     /**
@@ -49,6 +74,11 @@ class MapPool
      * @ORM\Column(name="num_semaine", type="integer")
      */
     private $numSemaine;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $playoff = false;
 
 
     /**
@@ -182,6 +212,118 @@ class MapPool
     public function setMap4($map4)
     {
         $this->map4 = $map4;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of map4
+     */ 
+    public function getMap5()
+    {
+        return $this->map5;
+    }
+
+    /**
+     * Set the value of map4
+     *
+     * @return  self
+     */ 
+    public function setMap5($map4)
+    {
+        $this->map5 = $map4;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of map4
+     */ 
+    public function getMap6()
+    {
+        return $this->map6;
+    }
+
+    /**
+     * Set the value of map4
+     *
+     * @return  self
+     */ 
+    public function setMap6($map4)
+    {
+        $this->map6 = $map4;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of map4
+     */ 
+    public function getMap7()
+    {
+        return $this->map7;
+    }
+
+    /**
+     * Set the value of map4
+     *
+     * @return  self
+     */ 
+    public function setMap7($map4)
+    {
+        $this->map7 = $map4;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of map4
+     */ 
+    public function getMap8()
+    {
+        return $this->map8;
+    }
+
+    /**
+     * Set the value of map4
+     *
+     * @return  self
+     */ 
+    public function setMap8($map4)
+    {
+        $this->map8 = $map4;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of map4
+     */ 
+    public function getMap9()
+    {
+        return $this->map9;
+    }
+
+    /**
+     * Set the value of map4
+     *
+     * @return  self
+     */ 
+    public function setMap9($map4)
+    {
+        $this->map9 = $map4;
+
+        return $this;
+    }
+
+    public function getPlayoff(): ?bool
+    {
+        return $this->playoff;
+    }
+
+    public function setPlayoff(bool $playoff): self
+    {
+        $this->playoff = $playoff;
 
         return $this;
     }

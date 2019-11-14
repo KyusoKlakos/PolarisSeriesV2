@@ -45,6 +45,13 @@
         .tabs .tab a {
             color: #FA9C1E !important;
         }
+
+
+        .isDisabled {
+            cursor: not-allowed;
+            opacity: 0.5;
+            pointer-events: none;
+        }
     </style>
     {% block css %}
 
@@ -73,6 +80,7 @@
             <li><a href="{{ path('show_team') }}">Les équipes</a></li>
             <li><a href="{{ path('standing') }}">Classements</a></li>
             <li><a href="{{ path('show_renc') }}">Rencontres</a></li>
+            <li><a class="{% block disabled_playoff %}{% endblock %}" href="{{ path('show_renc_playoff') }}">Playoff</a></li>
             {#<li><a href="{{ path('contact') }}">{{ 'layout.menu.principal.contact'  }}</a></li>#}
         </ul>
 

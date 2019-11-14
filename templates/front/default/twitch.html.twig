@@ -1,5 +1,11 @@
 {% extends 'base.html.twig' %}
 
+{% block disabled_playoff %}
+    {% if numSemaine < 6 %}
+        isDisabled
+    {% endif %}
+{% endblock %}
+
 {% block title %} - Twitch{% endblock %}
 
 {% block css %}

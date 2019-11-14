@@ -1,5 +1,11 @@
 {% extends 'base.html.twig' %}
 
+{% block disabled_playoff %}
+    {% if numSemaine < 6 %}
+        isDisabled
+    {% endif %}
+{% endblock %}
+
 {% block title %} - Les équipes{% endblock %}
 
 {% block css %}
@@ -38,7 +44,7 @@
                     {% if equipe.division.id == division.id %}
                     <li class="collection-item">
                         <span>{{equipe.nom}}</span>
-                        <a id="{{ equipe.id }}-click" class="pointer"><span class="new badge" data-badge-caption="Historique des matchs"></span></a>
+                        <a id="{{ equipe.id }}-click" class="pointer"><span class="new badge" data-badge-caption="Historique"></span></a>
                     </li>
                     <div id="{{ equipe.id }}-history">
                         {% for rencontre in rencontres %}
@@ -76,7 +82,7 @@
                     {% if equipe.division.id == division.id %}
                     <li class="collection-item">
                         <span>{{equipe.nom}}</span>
-                        <a id="{{ equipe.id }}-click-small" class="pointer"><span class="new badge" data-badge-caption="Historique des matchs"></span></a>
+                        <a id="{{ equipe.id }}-click-small" class="pointer"><span class="new badge" data-badge-caption="Historique"></span></a>
                     </li>
                     <div id="{{ equipe.id }}-history-small">
                         {% for rencontre in rencontres %}

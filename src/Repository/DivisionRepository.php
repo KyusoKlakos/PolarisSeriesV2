@@ -27,32 +27,11 @@ class DivisionRepository extends ServiceEntityRepository
         return $result;
     }
 
-    // /**
-    //  * @return Division[] Returns an array of Division objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('d')
-            ->andWhere('d.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('d.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+    public function findDivAvecEquipePlayoff(){
+        $query = $this->_em->createQuery('SELECT d FROM App\Entity\Division d WHERE EXISTS (SELECT e FROM App\Entity\Equipe e WHERE e.divisionPlayoff = d.id)');
+        $result = $query->getResult();
+        return $result;
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Division
-    {
-        return $this->createQueryBuilder('d')
-            ->andWhere('d.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
+   
 }

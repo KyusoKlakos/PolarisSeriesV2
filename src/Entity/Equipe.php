@@ -25,6 +25,11 @@ class Equipe
     private $division;
 
     /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Division")
+     */
+    private $divisionPlayoff;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="nom", type="string", length=40)
@@ -103,6 +108,22 @@ class Equipe
     public function setDivision($division)
     {
         $this->division = $division;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDivisionPlayoff()
+    {
+        return $this->divisionPlayoff;
+    }
+
+    /**
+     * @param mixed $division
+     */
+    public function setDivisionPlayoff($division)
+    {
+        $this->divisionPlayoff = $division;
     }
 
     /**

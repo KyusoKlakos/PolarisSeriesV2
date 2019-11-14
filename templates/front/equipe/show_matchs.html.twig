@@ -2,6 +2,12 @@
 
 {% block title %} - Liste des rencontres{% endblock %}
 
+{% block disabled_playoff %}
+    {% if numSemaine < 6 %}
+        isDisabled
+    {% endif %}
+{% endblock %}
+
 {% block css %}
 <style>
     .matchRow {
@@ -139,7 +145,7 @@
             <p class="center-align">{{ datesSemaine }}</p>
             <div class="row hide-on-med-and-down">
                 {% for mapPool in mapPools %}
-                    {% if mapPool.numSemaine == numSemaine %}
+                    {% if mapPool.numSemaine == numSemaine and mapPool.playoff == 0 %}
                     <div class="containerMap">
                         <div class="itemMap">
                             <div class="card_map card1 z-depth-2">
@@ -287,7 +293,7 @@
         </div>
         <div class="row hide-on-large-only">
             {% for mapPool in mapPools %}
-            {% if mapPool.numSemaine == numSemaine %}
+            {% if mapPool.numSemaine == numSemaine and mapPool.playoff == 0 %}
             <div class="containerMap">
                 <div class="itemMap">
                     <div class="card_map card1 z-depth-2">
@@ -343,7 +349,7 @@
             <p class="center-align">{{ datesNextSemaine }}</p>
             <div class="row hide-on-med-and-down">
                 {% for mapPool in mapPools %}
-                    {% if mapPool.numSemaine == numSemaine + 1 %}
+                    {% if mapPool.numSemaine == numSemaine + 1 and mapPool.playoff == 0 %}
                     <div class="containerMap">
                         <div class="itemMap">
                             <div class="card_map card1 z-depth-2">
@@ -491,7 +497,7 @@
         </div>
         <div class="row hide-on-large-only">
             {% for mapPool in mapPools %}
-            {% if mapPool.numSemaine == numSemaine + 1 %}
+            {% if mapPool.numSemaine == numSemaine + 1 and mapPool.playoff == 0 %}
             <div class="containerMap">
                 <div class="itemMap">
                     <div class="card_map card1 z-depth-2">

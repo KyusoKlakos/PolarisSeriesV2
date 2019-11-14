@@ -24,13 +24,21 @@ class DefaultController extends AbstractController
     * @Route("/terms", name="terms")
     */
     public function terms(){
-        return $this->render('front/default/terms.html.twig', []);
+        $em = $this->getDoctrine()->getManager();
+        $numSemaine = $em->getRepository(Championnat::class)->findAll()[0]->getSemaine();
+        return $this->render('front/default/terms.html.twig', [
+            "numSemaine" => $numSemaine
+        ]);
     }
 
     /**
     * @Route("/twitch", name="twitch")
     */
     public function twitch(){
-        return $this->render('front/default/twitch.html.twig', []);
+        $em = $this->getDoctrine()->getManager();
+        $numSemaine = $em->getRepository(Championnat::class)->findAll()[0]->getSemaine();
+        return $this->render('front/default/twitch.html.twig', [
+            "numSemaine" => $numSemaine
+        ]);
     }
 }

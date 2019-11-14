@@ -55,6 +55,11 @@ class Rencontre
      */
     private $score_ext;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $playoff = false;
+
     
 
     /**
@@ -159,6 +164,18 @@ class Rencontre
     public function setScoreExt(int $score_ext): self
     {
         $this->score_ext = $score_ext;
+
+        return $this;
+    }
+
+    public function getPlayoff(): ?bool
+    {
+        return $this->playoff;
+    }
+
+    public function setPlayoff(bool $playoff): self
+    {
+        $this->playoff = $playoff;
 
         return $this;
     }

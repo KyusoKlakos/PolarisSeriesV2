@@ -22,10 +22,12 @@ class EquipeController extends AbstractController
         $equipes = $em->getRepository(Equipe::class)->findAll();
         $divisions = $em->getRepository(Division::class)->findDivAvecEquipe();
         $rencontres = $em->getRepository(Rencontre::class)->findAll();
+        $numSemaine = $em->getRepository(Championnat::class)->findAll()[0]->getSemaine();
         return $this->render('front/equipe/show_teams.html.twig', [
             'equipes'=>$equipes,
             'divisions'=>$divisions,
-            'rencontres'=>$rencontres
+            'rencontres'=>$rencontres,
+            "numSemaine" => $numSemaine
         ]);
     }
 
@@ -36,6 +38,7 @@ class EquipeController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $equipes = $em->getRepository(Equipe::class)->findAll();
         $divisions = $em->getRepository(Division::class)->findAll();
+        $numSemaine = $em->getRepository(Championnat::class)->findAll()[0]->getSemaine();
 
         usort($equipes, function($a, $b) {
             if ($a->getVictoires() == $b->getVictoires())
@@ -48,7 +51,8 @@ class EquipeController extends AbstractController
         });
         return $this->render('front/equipe/show_standing.html.twig', [
             'equipes'=>$equipes,
-            'divisions'=>$divisions
+            'divisions'=>$divisions,
+            "numSemaine" => $numSemaine
         ]);
     }
 
@@ -72,6 +76,26 @@ class EquipeController extends AbstractController
             'nbSemaine'=>$nbSemaine,
             'datesSemaine'=>$datesSemaine,
             'datesNextSemaine'=>$datesNextSemaine
+        ]);
+    }
+
+    /**
+    * @Route("/meetings/playoff", name="show_renc_playoff")
+    */
+    public function playoff(){
+        $em = $this->getDoctrine()->getManager();
+        $divisions = $em->getRepository(Division::class)->findDivAvecEquipePlayoff();
+        $datesSemaine = $em->getRepository(Championnat::class)->findAll()[0]->getDatesSemaines();
+        $numSemaine = $em->getRepository(Championnat::class)->findAll()[0]->getSemaine();
+        $mapPools = $em->getRepository(MapPool::class)->findAll();
+        $rencontres = $em->getRepository(Rencontre::class)->findAll();
+
+        return $this->render('front/equipe/show_matchs_playoff.html.twig',[
+            "divisions" => $divisions,
+            "numSemaine" => $numSemaine,
+            'datesSemaine'=>$datesSemaine,
+            'mapPools'=>$mapPools,
+            'rencontres'=>$rencontres,
         ]);
     }
 }
