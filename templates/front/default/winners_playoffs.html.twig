@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block disabled_playoff %}
+    {% if numSemaine < 7 %}
+        isDisabled
+    {% endif %}
+{% endblock %}
+
+{% block disabled_playoff_small %}
+    {% if numSemaine < 7 %}
+        isDisabled
+    {% endif %}
+{% endblock %}
+
+{% block title %} - Home{% endblock %}
+
+{% block css %}
+    
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    {{ dump(winners) }}
+    <ul class="collection">
+        {% for w in winners %}
+            <li class="collection-item">{{ w.saison }}</li>
+            <div>
+                <img src="{{ asset(w.img)}}">
+                <p>{{ w.nomEquipe }}</p>
+                <ul>
+                    <li>{{ w.j1 }}</li>
+                    <li>{{ w.j2 }}</li>
+                    <li>{{ w.j3 }}</li>
+                    <li>{{ w.j4 }}</li>
+                    <li>{{ w.j5 }}</li>
+                    <li>{{ w.j6 }}</li>
+                </ul>
+            </div>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
+
+{% block js %}
+    <script type="text/javascript">
+        
+    </script>
+{% endblock %}
+

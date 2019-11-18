@@ -81,6 +81,7 @@
             <li><a href="{{ path('standing') }}">Classements</a></li>
             <li><a href="{{ path('show_renc') }}">Rencontres</a></li>
             <li><a class="{% block disabled_playoff %}{% endblock %}" href="{{ path('show_renc_playoff') }}">Playoff</a></li>
+            {#<li><a href="{{ path('play_win') }}">Vainqueurs</a></li>#}
             {#<li><a href="{{ path('contact') }}">{{ 'layout.menu.principal.contact'  }}</a></li>#}
         </ul>
 
@@ -102,6 +103,8 @@
     <li><a href="{{ path('show_team') }}">Les équipes</a></li>
     <li><a href="{{ path('standing') }}">Classements</a></li>
     <li><a href="{{ path('show_renc') }}">Rencontres</a></li>
+    <li><a class="{% block disabled_playoff_small %}{% endblock %}" href="{{ path('show_renc_playoff') }}">Playoff</a></li>
+    <li><a href="{{ path('play_win') }}">Vainqueurs</a></li>
     {#<li><a href="{{ path('contact') }}">{{ 'layout.menu.principal.contact'  }}</a></li>#}
     <li><a href="{{ path('twitch') }}"><img style="vertical-align:middle" alt="Live Twitch" src="{{ asset('img/twitch(1).png')}}"/> Twitch</a></li>
     <li><a href="https://discord.gg/BwXr2s4" target="_blank"><img style="vertical-align:middle" alt="Discord" src="{{ asset('img/discord_couleur.png')}}"/>Discord</a></li>
