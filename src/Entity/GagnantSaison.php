@@ -61,6 +61,11 @@ class GagnantSaison
      */
     private $j6;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $desc;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -77,6 +82,19 @@ class GagnantSaison
 
         return $this;
     }
+
+    public function getDesc(): ?string
+    {
+        return $this->desc;
+    }
+
+    public function setDesc(string $saison): self
+    {
+        $this->desc = $saison;
+
+        return $this;
+    }
+
 
     public function getImg(): ?string
     {

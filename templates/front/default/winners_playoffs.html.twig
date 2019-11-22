@@ -12,38 +12,84 @@
     {% endif %}
 {% endblock %}
 
-{% block title %} - Home{% endblock %}
+{% block title %}
+    - Home
+{% endblock %}
 
 {% block css %}
-    
+    <style>
+        .flex-winner {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .flex-winner img {
+            width: 125px;
+            height: 125px;
+            margin: 10px;
+        }
+
+        .flex-player {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .flex-player li {
+            flex: 1 1 33%;
+            margin: 10px;
+            text-align: center;
+        }
+
+        .flex-winner div p {
+            text-align: center;
+            font-size: 1.7em;
+        }
+
+        .collection li{
+            text-align: center;
+            font-size: 1.5em;
+        }
+
+        .flex-player li{
+            font-size: 1.1em;
+        }
+    </style>
 {% endblock %}
 
 {% block body %}
-<div class="container">
-    {{ dump(winners) }}
-    <ul class="collection">
-        {% for w in winners %}
-            <li class="collection-item">{{ w.saison }}</li>
-            <div>
-                <img src="{{ asset(w.img)}}">
-                <p>{{ w.nomEquipe }}</p>
-                <ul>
-                    <li>{{ w.j1 }}</li>
-                    <li>{{ w.j2 }}</li>
-                    <li>{{ w.j3 }}</li>
-                    <li>{{ w.j4 }}</li>
-                    <li>{{ w.j5 }}</li>
-                    <li>{{ w.j6 }}</li>
-                </ul>
-            </div>
-        {% endfor %}
-    </ul>
-</div>
+    <div class="container">
+        <h2 style="text-align: center;">Les vainqueurs de Polaris Series</h2>
+        <ul class="collection">
+            {% for w in winners %}
+                <li id="season-{{ w.id }}" class="collection-item">{{ w.saison }}</li>
+                <div>
+                    <div class="flex-winner" id="winner-{{w.id}}">
+                        <img src="{{ asset(w.img)}}">
+                        <div>
+                            {% if w.desc %}
+                                <p>{{ w.nomEquipe }} <i class="tiny material-icons tooltipped hide-on-small-and-down" data-position="top" data-tooltip="{{ w.desc }}">info_outline</i></p>
+                            {% else %}
+                                <p>{{ w.nomEquipe }}</p>
+                            {% endif %}
+                            <ul class="flex-player">
+                                <li>{{ w.j1 }}</li>
+                                <li>{{ w.j2 }}</li>
+                                <li>{{ w.j3 }}</li>
+                                <li>{{ w.j4 }}</li>
+                                <li>{{ w.j5 }}</li>
+                                <li>{{ w.j6 }}</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <hr width="100%" color="#e0e0e0">
+                </div>
+            {% endfor %}
+        </ul>
+    </div>
 {% endblock %}
 
 {% block js %}
     <script type="text/javascript">
-        
     </script>
 {% endblock %}
-
