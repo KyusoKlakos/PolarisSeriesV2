@@ -204,7 +204,9 @@
                             </div>
                         {% endif %}
                     {% endfor %}
-                    <p id="next-map" style="text-align: center; margin-top: 0;">Maps Pool de la semaine du {{ datesNextSemaine }} <i class="tiny material-icons">arrow_forward</i></p>
+                    {% if numSemaine < 8 %}
+                        <p id="next-map" style="text-align: center; margin-top: 0;">Maps Pool de la semaine du {{ datesNextSemaine }} <i class="tiny material-icons">arrow_forward</i></p>
+                    {% endif %}
                 </div>
 
                 {# MAP NEXT SEMAINE #}
@@ -462,7 +464,9 @@
                         </div>
                     {% endif %}
                 {% endfor %}
-                <p id="next-map-small" style="text-align: center; margin-top: 0;">Maps Pool de la semaine du {{ datesNextSemaine }} <i class="tiny material-icons">arrow_forward</i></p>
+                {% if numSemaine < 8 %}
+                    <p id="next-map-small" style="text-align: center; margin-top: 0;">Maps Pool de la semaine du {{ datesNextSemaine }} <i class="tiny material-icons">arrow_forward</i></p>
+                {% endif %}
             </div>
 
             {# MAP NEXT SEMAINE SMALL #}
