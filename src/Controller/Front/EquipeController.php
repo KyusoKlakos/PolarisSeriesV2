@@ -86,6 +86,7 @@ class EquipeController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $divisions = $em->getRepository(Division::class)->findDivAvecEquipePlayoff();
         $datesSemaine = $em->getRepository(Championnat::class)->findAll()[0]->getDatesSemaines();
+        $datesNextSemaine = $em->getRepository(Championnat::class)->findAll()[0]->getDatesNextSemaines();
         $numSemaine = $em->getRepository(Championnat::class)->findAll()[0]->getSemaine();
         $mapPools = $em->getRepository(MapPool::class)->findAll();
         $rencontres = $em->getRepository(Rencontre::class)->findAll();
@@ -96,6 +97,8 @@ class EquipeController extends AbstractController
             'datesSemaine'=>$datesSemaine,
             'mapPools'=>$mapPools,
             'rencontres'=>$rencontres,
+            'numNextSemaine'=> $numSemaine + 1,
+            'datesNextSemaine'=>$datesNextSemaine
         ]);
     }
 }
