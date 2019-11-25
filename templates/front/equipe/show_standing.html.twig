@@ -35,11 +35,14 @@
             <div class="col s12">
                 <ul class="tabs tabs-fixed-width tabs-correct">
                     {% for division in divisions %}
-                        <li class="tab col s2"><a href="#{{ division.id }}">{{ division.nom }}</a></li>
+                        {% if division.playoff == false %}
+                            <li class="tab col s2"><a href="#{{ division.id }}">{{ division.nom }}</a></li>
+                        {% endif %}
                     {% endfor %}
                 </ul>
             </div>
             {% for division in divisions %}
+                {% if division.playoff == false %}
                 <div id="{{ division.id }}" class="col s12">
                     <table class="striped">
                         <thead>
@@ -88,6 +91,7 @@
                         </tbody>
                     </table>
                 </div>
+                {% endif %}
             {% endfor %}
         </div>
     </div>

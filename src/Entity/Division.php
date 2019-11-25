@@ -46,6 +46,12 @@ class Division
      */
     private $cotemaxi;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $playoff = false;
+    
+
 
     /**
      * Get id
@@ -134,6 +140,18 @@ class Division
     public function setCode(string $code)
     {
         $this->code = $code;
+
+        return $this;
+    }
+
+    public function getPlayoff(): ?bool
+    {
+        return $this->playoff;
+    }
+
+    public function setPlayoff(bool $playoff): self
+    {
+        $this->playoff = $playoff;
 
         return $this;
     }
