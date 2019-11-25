@@ -619,6 +619,114 @@
                         </div>
                     {% endif %}
                 {% endfor %}
+
+                <h5 style="text-align: center;">Rencontres de la semaine {{ datesNextSemaine }}</h5>
+
+                <div class="col m10 offset-m1 s12">
+                    <ul class="tabs tabs-fixed-width tabs-correct">
+                        {% for division in divisions %}
+                            <li class="tab col s3">
+                                <a href="#{{ division.id }}">{{ division.nom }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+
+                {% for division in divisions %}
+                    <div id="{{ division.id }}" class="col s12">
+                        {% for rencontre in rencontres %}
+                            {% if rencontre.equipeDom.divisionPlayoff == division and rencontre.numSemaine == 7 and rencontre.playoff %}
+                                <div class="container">
+                                    <div
+                                        class="row matchRow">
+
+                                        {# Affichage sur grand écran #}
+                                        <div class="hide-on-med-and-down">
+                                            <div class="col s5 right-align">
+                                                <div class="col s8">
+                                                    <div class="right-align">
+                                                        <span class="capitaine">{{rencontre.equipeDom.capitaine}}</span>
+                                                        <img style="vertical-align:middle" src="{{asset('img/bnet.png')}}" width="24">
+                                                    </div>
+                                                    <br>
+                                                    <div class="right-align">
+                                                        <span class="capitaine righ-align">{{rencontre.equipeDom.discord | raw}}</span>
+                                                        <img style="vertical-align:middle" src="{{asset('img/discordIcon.png')}}" width="24">
+                                                    </div>
+                                                </div>
+                                                <div class="col s4 matchRowDom">
+                                                    {{ rencontre.equipeDom.nom }}
+                                                </div>
+                                            </div>
+
+                                            <div class="col s2 center-align matchRowVS">
+                                                <img src="{{ asset('img/vs.png')}}"/>
+                                            </div>
+
+                                            <div class="col s5 left-align">
+                                                <div class="col s4 matchRowExt">
+                                                    {{ rencontre.equipeExt.nom }}
+                                                </div>
+                                                <div class="col s8 right-align">
+                                                    <div class="valign-wrapper">
+                                                        <img src="{{asset('img/bnet.png')}}" width="24">
+                                                        <span class="capitaine">{{rencontre.equipeExt.capitaine}}</span>
+                                                    </div>
+                                                    <br>
+                                                    <div class="valign-wrapper">
+                                                        <img src="{{asset('img/discordIcon.png')}}" width="24">
+                                                        <span class="capitaine">{{rencontre.equipeExt.discord | raw}}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        {# Affichage sur petit écran #}
+                                        <div class="hide-on-large-only">
+                                            <div class="col s12">
+                                                <div class="col s6 matchRowDom right-align">
+                                                    {{ rencontre.equipeDom.nom }}
+                                                </div>
+                                                <div class="col s6 left-align">
+                                                    <div>
+                                                        <img style="vertical-align:middle" src="{{asset('img/bnet.png')}}" width="24">
+                                                        <span class="capitaine">{{rencontre.equipeDom.capitaine}}</span>
+                                                    </div>
+                                                    <div>
+                                                        <img style="vertical-align:middle" src="{{asset('img/discordIcon.png')}}" width="24">
+                                                        <span class="capitaine righ-align">{{rencontre.equipeDom.discord | raw}}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col s12 center-align matchRowVS">
+                                                <img src="{{ asset('img/vs.png')}}"/>
+                                            </div>
+                                            <div class="spacer-1"></div>
+                                            <div class="col s12">
+                                                <div class="col s6 matchRowExt right-align">
+                                                    {{ rencontre.equipeExt.nom }}
+                                                </div>
+                                                <div class="col s6 left-align">
+                                                    <div>
+                                                        <img style="vertical-align:middle" src="{{asset('img/bnet.png')}}" width="24">
+                                                        <span class="capitaine">{{rencontre.equipeExt.capitaine}}</span>
+                                                    </div>
+                                                    <div>
+                                                        <img style="vertical-align:middle" src="{{asset('img/discordIcon.png')}}" width="24">
+                                                        <span class="capitaine righ-align">{{rencontre.equipeExt.discord | raw}}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+            </div>
+
             {% endif %}
         {% endif %}
     {% else %}
