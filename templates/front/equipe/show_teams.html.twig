@@ -12,6 +12,18 @@
     {% endif %}
 {% endblock %}
 
+{% block disabled_matchs %}
+    {% if numSemaine > 6 %}
+        isDisabled
+    {% endif %}
+{% endblock %}
+
+{% block disabled_matchs_small %}
+    {% if numSemaine > 6 %}
+        isDisabled
+    {% endif %}
+{% endblock %}
+
 {% block title %} - Les équipes{% endblock %}
 
 {% block css %}

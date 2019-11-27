@@ -4,6 +4,18 @@
     - Liste des rencontres
 {% endblock %}
 
+{% block disabled_matchs %}
+    {% if numSemaine > 6 %}
+        isDisabled
+    {% endif %}
+{% endblock %}
+
+{% block disabled_matchs_small %}
+    {% if numSemaine > 6 %}
+        isDisabled
+    {% endif %}
+{% endblock %}
+
 {% block css %}
     <style>
         .matchRow {
