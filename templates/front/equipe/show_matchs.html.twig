@@ -213,9 +213,17 @@
             <div class="col m10 offset-m1 s12">
                 <ul class="tabs tabs-fixed-width tabs-correct">
                     {% for division in divisions %}
-                    <li class="tab col s3">
-                        <a href="#{{ division.id }}">{{ division.nom }}</a>
-                    </li>
+                    {% set nbRecontre = 0 %}
+                    {% for rencontre in rencontres %}
+                        {% if rencontre.equipeDom.division == division and rencontre.numSemaine == numSemaine  %}
+                            {% set nbRecontre = nbRecontre + 1 %}
+                        {% endif %}
+                    {% endfor %}
+                    {% if nbRecontre > 0 %}
+                        <li class="tab col s3">
+                            <a href="#{{ division.id }}">{{ division.nom }}</a>
+                        </li>
+                    {% endif %}    
                     {% endfor %}
                 </ul>
             </div>
@@ -417,9 +425,17 @@
             <div class="col m10 offset-m1 s12">
                 <ul class="tabs tabs-fixed-width tabs-correct">
                     {% for division in divisions %}
-                    <li class="tab col s3">
-                        <a href="#{{ division.id }}_nw">{{ division.nom }}</a>
-                    </li>
+                    {% set nbRecontre = 0 %}
+                    {% for rencontre in rencontres %}
+                        {% if rencontre.equipeDom.division == division and rencontre.numSemaine == numSemaine +1  %}
+                            {% set nbRecontre = nbRecontre + 1 %}
+                        {% endif %}
+                    {% endfor %}
+                    {% if nbRecontre > 0 %}
+                        <li class="tab col s3">
+                            <a href="#{{ division.id }}_nw">{{ division.nom }}</a>
+                        </li>
+                    {% endif %}    
                     {% endfor %}
                 </ul>
             </div>
