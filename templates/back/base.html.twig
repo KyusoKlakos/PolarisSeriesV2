@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    {% block head %}
+    {% endblock %}
+
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/js/materialize.min.js"></script>
+    <script src="{{ asset('js/init.js') }}"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.4/isotope.pkgd.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="{{ asset('css/materialize.css') }}" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <link href="{{ asset('css/style.css') }}" type="text/css" rel="stylesheet" media="screen,projection"/>
+    <link rel="stylesheet" href="{{ asset('css/font-awesome.css') }}">
+
+    <link rel="shortcut icon" href="{{ asset('img/favicon.png') }}">
+    <link rel="icon" href="{{ asset('img/favicon.png') }}" >
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.2/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sly/1.6.1/sly.min.js"></script>
+
+    <script src="{{ asset('js/jquery.scrollbar.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('css/jquery.scrollbar.css') }}" />
+
+    <style>
+        .alertmsg{
+            padding: 10px;
+            font-size: 20px;
+            padding-left: 20px;
+            position: absolute;
+            right: 10px;
+            top: 75px;
+            z-index: 99;
+        }
+
+         .tabs .indicator {
+             background-color: #FA9C1E !important;
+         }
+
+        .tabs .tab a:hover, .tabs .tab a.active {
+            color: #FA9C1E !important;
+        }
+
+        .tabs .tab a {
+            color: #FA9C1E !important;
+        }
+
+
+        .isDisabled {
+            cursor: not-allowed;
+            opacity: 0.5;
+            pointer-events: none;
+        }
+    </style>
+    {% block css %}
+
+    {% endblock %}
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Polaris Series - Saison 1{% block title %}{% endblock %}</title>
+</head>
+
+<body>
+
+
+{% for flashMessage in app.session.flashbag.get('success') %}
+    <div  class="card-panel  green accent-4 white-text alertmsg"><i class="material-icons">done</i>{{ flashMessage }}</div>
+{% endfor %}
+{% for flashMessage in app.session.flashbag.get('erreur') %}
+    <div  class="card-panel  red darken-1 white-text alertmsg"><i class="material-icons">cancel</i>{{ flashMessage }}</div>
+{% endfor %}
+
+<nav class="nav-fixed custom-black darken-3">
+    <div class="nav-wrapper">
+        <a class="button-collapse" href="#" data-activates="slide-out" id="button-collapse"><img class="menu_logo" src="{{ asset('img/menu.png') }}" alt="Menu"></a>
+        <!-- Horizontal Navbar links only shown on large resolutions -->
+        <ul class="left hide-on-med-and-down">
+            <li><a href="">Accueil</a></li>
+        </ul>
+    </div>
+</nav>
+
+<!-- Sidebar navigation -->
+<ul id="slide-out" class="side-nav" style="z-index: 99999;">
+    <li><a href="">Accueil</a></li>
+</ul>
+
+<main>
+    <div class="spacer-menu"></div>
+    {% block body %} {% endblock %}
+</main>
+
+{% block js %}
+
+{% endblock %}
+</body>
+</html>
