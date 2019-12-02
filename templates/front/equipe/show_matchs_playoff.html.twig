@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'front/base.html.twig' %}
 
 {% block title %}
     - Liste des rencontres
@@ -139,13 +139,23 @@
 
 {% block body %}
     <div class="main-content">
+
         {% if numSemaine >= 6 %}
             <h2 class="center-align">Rencontres des Playoffs</h2>
             <p class="center-align">{% if numSemaine == 6 %}Repos {% endif %}{{ datesSemaine }}</p>
 
             {% if numSemaine != 6 %}
+
+                {% if numSemaine < 8 %}
+                    <div id="btn_nextweek_small" style="z-index:100;" class="hide-on-med-and-up" style="text-align: right"> 
+                        <a class="btn-floating" style="margin-right:10px; margin-top:10px; background-color: #FA9C1E"><i class="material-icons">navigate_next</i></a>
+                    </div>
+                    <div style="z-index:100;" id="btn_currentweek_small" class="hide-on-med-and-up" style="text-align: left"> 
+                        <a class="btn-floating" style="margin-left:10px; margin-top:10px; background-color: #FA9C1E"><i class="material-icons">navigate_before</i></a>
+                    </div>
+                {% endif %}
                 <div id="content-map" class="row hide-on-med-and-down">
-                    <h5 style="text-align: center;">Maps Pool de la semaine {{ datesSemaine }}</h5>
+                    <h5 style="text-align: center;">Maps Pool de cette semaine</h5>
                     {% for mapPool in mapPools %}
                         {% if mapPool.numSemaine == numSemaine and mapPool.playoff %}
                             <div class="containerMap">
@@ -217,7 +227,9 @@
                         {% endif %}
                     {% endfor %}
                     {% if numSemaine < 8 %}
-                        <p id="next-map" style="text-align: center; margin-top: 0;">Maps Pool de la semaine du {{ datesNextSemaine }} <i class="tiny material-icons">arrow_forward</i></p>
+                        <div style="z-index:100;" id="btn_nextweek" class="nextweek hoverable hide-on-small-only">
+                            <i class="material-icons">navigate_next</i>
+                        </div>
                     {% endif %}
                 </div>
 
@@ -294,11 +306,14 @@
                         </div>
                     {% endif %}
                 {% endfor %}
-                <p id="first-map" style="text-align: center; margin-top: 0;"> <i class="tiny material-icons">arrow_back</i> Maps Pool de la semaine du {{ datesSemaine }}</p>
+                <div id="btn_currentweek" style="z-index:100;" class="currentweek hoverable hide-on-small-only">
+                    <i class="material-icons">navigate_before</i>
+                </div>
             </div>
 
+                <h5 id="titre-rencontre" style="text-align:center;">Rencontres de cette semaine</h5>
 
-                <div class="col m10 offset-m1 s12">
+                <div id="tab-div" class="col m10 offset-m1 s12">
                     <ul class="tabs tabs-fixed-width tabs-correct">
                         {% for division in divisions %}
                             <li class="tab col s3">
@@ -307,9 +322,8 @@
                         {% endfor %}
                     </ul>
                 </div>
-
-
-                {% for division in divisions %}
+                <div id="renc">
+                    {% for division in divisions %}
                     <div id="{{ division.id }}" class="col s12">
                         {% for rencontre in rencontres %}
                             {% if rencontre.equipeDom.divisionPlayoff == division and rencontre.numSemaine == numSemaine and rencontre.playoff %}
@@ -400,7 +414,8 @@
                             {% endif %}
                         {% endfor %}
                     </div>
-                {% endfor %}
+                {% endfor %}    
+                </div>
             </div>
 
             {# MAP SEMAINE small #}
@@ -476,9 +491,6 @@
                         </div>
                     {% endif %}
                 {% endfor %}
-                {% if numSemaine < 8 %}
-                    <p id="next-map-small" style="text-align: center; margin-top: 0;">Maps Pool de la semaine du {{ datesNextSemaine }} <i class="tiny material-icons">arrow_forward</i></p>
-                {% endif %}
             </div>
 
             {# MAP NEXT SEMAINE SMALL #}
@@ -554,7 +566,7 @@
                         </div>
                     {% endif %}
                 {% endfor %}
-                <p id="first-map-small" style="text-align: center; margin-top: 0;"> <i class="tiny material-icons">arrow_back</i> Maps Pool de la semaine du {{ datesSemaine }}</p>
+                {#<!--Retour petit-->#}
             </div>
 
 
@@ -752,33 +764,43 @@
      $(document).ready(function() {
          $("#content-next-map").hide();
          $("#content-next-map-small").hide();
+         $("#btn_currentweek_small").hide();
 
-          $("#next-map").click(function(){
-                $("#content-map").fadeOut();
-                setTimeout(function(){
-                    $("#content-next-map").fadeIn();
-                },300); 
+          $("#btn_nextweek").click(function(){
+                $("#content-map").hide();
+                $("#content-next-map").show();
+                $("#titre-rencontre").hide();
+                $("#tab-div").hide();
+                $("#renc").hide();
+          }); 
+
+          $("#btn_nextweek_small").click(function(){
+                $("#btn_nextweek_small").hide();
+                $("#content-map-small").hide();
+                $("#content-next-map-small").show();
+                $("#titre-rencontre").hide();
+                $("#tab-div").hide();
+                $("#renc").hide();
+                $("#btn_nextweek_small").hide();
+                $("#btn_currentweek_small").show();
           });
 
-          $("#next-map-small").click(function(){
-                $("#content-map-small").fadeOut();
-                setTimeout(function(){
-                    $("#content-next-map-small").fadeIn();
-                },300); 
+          $("#btn_currentweek").click(function(){
+                $("#content-next-map").hide();
+                $("#content-map").show();
+                $("#titre-rencontre").show();
+                $("#tab-div").show();
+                $("#renc").show();
           });
 
-          $("#first-map").click(function(){
-                $("#content-next-map").fadeOut();
-                setTimeout(function(){
-                    $("#content-map").fadeIn();
-                },300); 
-          });
-
-          $("#first-map-small").click(function(){
-                $("#content-next-map-small").fadeOut();
-                setTimeout(function(){
-                    $("#content-map-small").fadeIn();
-                },300); 
+          $("#btn_currentweek_small").click(function(){
+                $("#content-next-map-small").hide();
+                $("#content-map-small").show();
+                $("#titre-rencontre").show();
+                $("#tab-div").show();
+                $("#renc").show();
+                $("#btn_nextweek_small").show();
+                $("#btn_currentweek_small").hide();
           });
      });
 </script>

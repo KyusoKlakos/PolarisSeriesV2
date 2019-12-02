@@ -86,6 +86,9 @@
         </ul>
 
         <ul class="right hide-on-med-and-down">
+            {% if app.user %}
+                <li><a href="{{ path('admin_param') }}">Administration</a></li>
+            {% endif %}
             <li><a href="{{ path('twitch') }}"><img style="vertical-align:middle" alt="Live Twitch" src="{{ asset('img/twitch(1).png')}}"/></a></li>
             <li><a href="https://discord.gg/BwXr2s4" target="_blank"><img style="vertical-align:middle" alt="Discord" src="{{ asset('img/discord_couleur.png')}}"/></a></li>
             <li><a href="https://twitter.com/PSeriesOW" target="_blank"><img style="vertical-align:middle" alt="Twitter" src="{{ asset('img/twitter.png')}}"/></a></li>
@@ -105,6 +108,9 @@
     <li><a class="{% block disabled_matchs_small %}{% endblock %}" href="{{ path('show_renc') }}">Rencontres</a></li>
     <li><a class="{% block disabled_playoff_small %}{% endblock %}" href="{{ path('show_renc_playoff') }}">Playoff</a></li>
     <li><a class="isDisabled" href="{{ path('play_win') }}">Vainqueurs</a></li>
+    {% if app.user %}
+        <li><a href="{{ path('admin_param') }}">Administration</a></li>
+    {% endif %}
     {#<li><a href="{{ path('contact') }}">{{ 'layout.menu.principal.contact'  }}</a></li>#}
     <li><a href="{{ path('twitch') }}"><img style="vertical-align:middle" alt="Live Twitch" src="{{ asset('img/twitch(1).png')}}"/> Twitch</a></li>
     <li><a href="https://discord.gg/BwXr2s4" target="_blank"><img style="vertical-align:middle" alt="Discord" src="{{ asset('img/discord_couleur.png')}}"/>Discord</a></li>
@@ -126,10 +132,10 @@
     <div class="spacer-2"></div>
     <div class="container ">
         <div class="row">
-            <div class="col m2 s12 offset-m2"><img class="footer_logo responsive-img" src="{{ asset('img/ps.png') }}" alt="Logo STE"> <div class="spacer-1"></div></div>
-            <div class="col m2 s12"><img class="footer_logo responsive-img" src="{{ asset('img/ste.png') }}" alt="Logo STE"> <div class="spacer-1"></div></div>
-            <div class="col m2 s12 "><a href="http://eu.blizzard.com/"><img class="footer_logo responsive-img" src="{{ asset('img/blizzard.png') }}" alt="Logo Blizzard"> <div class="spacer-1"></div></a></div>
-            <div class="col m2 s12"><a href="https://playoverwatch.com/"><img class="footer_logo responsive-img" src="{{ asset('img/overwatch.png') }}" alt="Logo Overwatch"></a></div>
+            <div class="col m3 s12"><img class="footer_logo responsive-img" src="{{ asset('img/ps.png') }}" alt="Logo STE"> <div class="spacer-1"></div></div>
+            <div class="col m3 s12"><img class="footer_logo responsive-img" src="{{ asset('img/ste.png') }}" alt="Logo STE"> <div class="spacer-1"></div></div>
+            <div class="col m3 s12 "><a href="http://eu.blizzard.com/"><img class="footer_logo responsive-img" src="{{ asset('img/blizzard.png') }}" alt="Logo Blizzard"> <div class="spacer-1"></div></a></div>
+            <div class="col m3 s12"><a href="https://playoverwatch.com/"><img class="footer_logo responsive-img" src="{{ asset('img/overwatch.png') }}" alt="Logo Overwatch"></a></div>
         </div>
         <div class="spacer-2"></div>
         <div class="row">
