@@ -78,7 +78,7 @@
         var privacyBtnMsg = "TERMS (FR)";
       break;
   }
-  var privacyLink = "http://polarisseries.fr/fr/terms";
+  var privacyLink = "http://polarisseries.fr/terms";
   //check cookies 
   if(document.cookie){
    var cookieString = document.cookie;
