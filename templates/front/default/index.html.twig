@@ -6,8 +6,8 @@
     {% endif %}
 {% endblock %}
 
-{% block disabled_playoff_small and numSemaine >= 9 %}
-    {% if numSemaine < 6 %}
+{% block disabled_playoff_small %}
+    {% if numSemaine < 6 and numSemaine >= 9 %}
         isDisabled
     {% endif %}
 {% endblock %}
