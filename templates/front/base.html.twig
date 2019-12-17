@@ -80,7 +80,7 @@
             <li><a href="{{ path('show_team') }}">Les équipes</a></li>
             <li><a href="{{ path('standing') }}">Classements</a></li>
             <li><a class="{% block disabled_matchs %}{% endblock %}" href="{{ path('show_renc') }}">Rencontres</a></li>
-            <li><a class="{% block disabled_playoff %}isDisabled{% endblock %}" href="{{ path('show_renc_playoff') }}">Playoff</a></li>
+            <li><a class="isDisabled {% block disabled_playoff %}{% endblock %}" href="{{ path('show_renc_playoff') }}">Playoff</a></li>
             <li><a href="{{ path('play_win') }}">Vainqueurs</a></li>
             {#<li><a href="{{ path('contact') }}">{{ 'layout.menu.principal.contact'  }}</a></li>#}
         </ul>
@@ -106,7 +106,7 @@
     <li><a href="{{ path('show_team') }}">Les équipes</a></li>
     <li><a href="{{ path('standing') }}">Classements</a></li>
     <li><a class="{% block disabled_matchs_small %}{% endblock %}" href="{{ path('show_renc') }}">Rencontres</a></li>
-    <li><a class="{% block disabled_playoff_small %}isDisabled{% endblock %}" href="{{ path('show_renc_playoff') }}">Playoff</a></li>
+    <li><a class="isDisabled {% block disabled_playoff_small %}{% endblock %}" href="{{ path('show_renc_playoff') }}">Playoff</a></li>
     <li><a href="{{ path('play_win') }}">Vainqueurs</a></li>
     {% if app.user %}
         <li><a href="{{ path('admin_param') }}">Administration</a></li>
