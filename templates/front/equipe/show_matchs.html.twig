@@ -3,13 +3,13 @@
 {% block title %} - Liste des rencontres{% endblock %}
 
 {% block disabled_playoff %}
-    {% if numSemaine < 6 %}
+    {% if numSemaine < 6 and numSemaine >= 9 %}
         isDisabled
     {% endif %}
 {% endblock %}
 
 {% block disabled_playoff_small %}
-    {% if numSemaine < 6 %}
+    {% if numSemaine < 6 and numSemaine >= 9 %}
         isDisabled
     {% endif %}
 {% endblock %}
