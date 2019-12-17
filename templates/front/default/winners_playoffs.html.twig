@@ -58,50 +58,104 @@
             font-size: 1.7em;
         }
 
-        .collection li{
+        .collection li {
             text-align: center;
             font-size: 1.5em;
         }
 
-        .flex-player li{
+        .flex-player li {
             font-size: 1.1em;
+        }
+
+        .hero {
+            display: inline-block;
+            position: relative;
+            width: 350px;
+            min-width: 350px;
+            height: 350px;
+            border-radius: 30px;
+            overflow: hidden;
+            box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.3);
+            margin: 30px;
+        }
+
+        .hero-profile-img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .hero-description-bk {
+            background-image: linear-gradient(0deg,#1e90ff,#12CBC4);
+            border-radius: 30px;
+            position: absolute;
+            top: 55%;
+            left: -5px;
+            height: 65%;
+            width: 108%;
+            transform: skew(19deg, -9deg);
+            opacity: 0.9;
+        }
+
+        .hero-logo {
+            height: 80px;
+            width: 80px;
+            border-radius: 20px;
+            background-color: #fff;
+            position: absolute;
+            bottom: 30%;
+            left: 30px;
+            overflow: hidden;
+            box-shadow: 5px 5px 30px rgba(0, 0, 0, 0.7);
+        }
+
+        .hero-logo img {
+            height: 100%;
+        }
+
+        .hero-description {
+            position: absolute;
+            color: black;
+            left: 150px;
+            bottom: 20%;
+        }
+
+        .hero-date {
+            position: absolute;
+            color: black;
+            left: 30px;
+            bottom: 7%;
+            font-size: 1.1em;
+        }
+
+        .center{
+            text-align: center;
         }
     </style>
 {% endblock %}
 
 {% block body %}
-    <div class="container class="main-content"">
+    <div class="container class=" main-content"">
         <h2 style="text-align: center;">Les vainqueurs de Polaris Series</h2>
-        <ul class="collection">
+        <div class="row center">
             {% for w in winners %}
-                <li id="season-{{ w.id }}" class="collection-item">{{ w.saison }}</li>
-                <div>
-                    <div class="flex-winner" id="winner-{{w.id}}">
-                        <img src="{{ asset(w.img)}}">
-                        <div>
-                            {% if w.desc %}
-                                <p>{{ w.nomEquipe }} <i class="tiny material-icons tooltipped hide-on-small-and-down" data-position="top" data-tooltip="{{ w.desc }}">info_outline</i></p>
-                            {% else %}
-                                <p>{{ w.nomEquipe }}</p>
-                            {% endif %}
-                            <ul class="flex-player">
-                                <li>{{ w.j1 }}</li>
-                                <li>{{ w.j2 }}</li>
-                                <li>{{ w.j3 }}</li>
-                                <li>{{ w.j4 }}</li>
-                                <li>{{ w.j5 }}</li>
-                                <li>{{ w.j6 }}</li>
-                            </ul>
-                        </div>
+                <div class="hero">
+                    <img class="hero-profile-img" src="{{ asset(w.img)}}" alt="">
+                    <div class="hero-description-bk"></div>
+                    <div class="hero-logo">
+                        <img src="{{ asset('img/favicon.png')}}" alt="">
                     </div>
-                    <hr width="100%" color="#e0e0e0">
+                    <div class="hero-description">
+                        <h3>{{ w.nomEquipe }}</h3>
+                    </div>
+                    <div class="hero-date">
+                        <p>{{ w.saison }}</p>
+                    </div>
                 </div>
             {% endfor %}
-        </ul>
+        </div>
     </div>
 {% endblock %}
 
 {% block js %}
-    <script type="text/javascript">
-    </script>
+    <script type="text/javascript"></script>
 {% endblock %}
