@@ -1,0 +1,16 @@
+{% extends 'front/base.html.twig' %}
+{% block title %} - Administration des rencontres{% endblock %}
+{% block body %}
+    <p>{% if message is defined %}<span>{{ message }}</span>{% endif %}</p>
+    <form name="formCreate" method="post" action="{{ path('create_renc') }}">
+        <input type="hidden" name="formCreate" value="on"/>
+        <div>
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password"
+                   required
+                   placeholder="Mot de passe" />
+        </div>
+        <input type="submit" />
+    </form>
+
+{% endblock %}

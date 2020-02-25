@@ -171,7 +171,7 @@ class EquipeController extends AbstractController
                 }
             }
         }
-        return $this->render('BackBundle:Rencontre:administration.html.twig');
+        return $this->render('front/equipe/administration.html.twig');
     }
 
 
