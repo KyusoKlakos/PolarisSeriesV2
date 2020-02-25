@@ -144,9 +144,9 @@ class EquipeController extends AbstractController
 
                 if ($password === self::PASSWORD) {
                     $em = $this->getDoctrine()->getManager();
-                    $divisions = $em->getRepository('BackBundle:Division')->findDivAvecEquipe();
+                    $divisions = $em->getRepository(Division::class)->findDivAvecEquipe();
                     foreach ($divisions as $division) {
-                        $equipes = $em->getRepository('BackBundle:Equipe')->findByDiv($division);
+                        $equipes = $em->getRepository(Equipe::class)->findByDiv($division);
                         $schedule = $this->scheduler($equipes, $division);
                         foreach ($schedule AS $round => $games) {
                             foreach ($games AS $play) {

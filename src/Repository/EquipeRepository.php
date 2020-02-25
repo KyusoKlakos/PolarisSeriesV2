@@ -19,6 +19,12 @@ class EquipeRepository extends ServiceEntityRepository
         parent::__construct($registry, Equipe::class);
     }
 
+    public function findByDiv($division){
+        $query = $this->_em->createQuery('SELECT e FROM App\Entity\Equipe e WHERE e.division = :div')->setParameter('div', $division);
+        $result = $query->getResult();
+        return $result;
+    }
+
     // /**
     //  * @return Equipe[] Returns an array of Equipe objects
     //  */
