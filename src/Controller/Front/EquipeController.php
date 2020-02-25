@@ -4,6 +4,8 @@ namespace App\Controller\Front;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Validator\Constraints\DateTime;
 use App\Entity\Equipe;
 use App\Entity\Division;
 use App\Entity\Rencontre;
@@ -13,6 +15,9 @@ use App\Entity\Championnat;
 
 class EquipeController extends AbstractController
 {
+
+    const PASSWORD = "TScreateM4tchs";
+
     /**
      * @Route("/teams", name="show_team")
      */
@@ -101,4 +106,73 @@ class EquipeController extends AbstractController
             'datesNextSemaine'=>$datesNextSemaine
         ]);
     }
+
+
+    //Génération aléatoire des rencontres
+    function scheduler($teams, $division){
+        if (count($teams)%2 != 0){
+            $teamBye = new Equipe();
+            $teamBye->setNom("BYE");
+            $teamBye->setId(0);
+            array_push($teams,$teamBye);
+        }
+        $away = array_splice($teams,(count($teams)/2));
+        $home = $teams;
+        for ($i=0; $i < count($home)+count($away)-1; $i++){
+            for ($j=0; $j<count($home); $j++){
+                $round[$i][$j]["Home"]=$home[$j];
+                $round[$i][$j]["Away"]=$away[$j];
+            }
+            if(count($home)+count($away)-1 > 2){
+                $temp2 = array_splice($home,1,1);
+                $temp = array_shift($temp2);
+                array_unshift($away,$temp);
+                array_push($home,array_pop($away));
+            }
+        }
+        return $round;
+    }
+
+     /**
+     * @Route("/rencontre/create", name="create_renc")
+     */
+    public function creationRencontres(Request $request)
+    {
+        if($request->isMethod('POST')){
+            if($request->request->has('formCreate')) {
+                $password = $request->request->get('password');
+
+                if ($password === self::PASSWORD) {
+                    $em = $this->getDoctrine()->getManager();
+                    $divisions = $em->getRepository('BackBundle:Division')->findDivAvecEquipe();
+                    foreach ($divisions as $division) {
+                        $equipes = $em->getRepository('BackBundle:Equipe')->findByDiv($division);
+                        $schedule = $this->scheduler($equipes, $division);
+                        foreach ($schedule AS $round => $games) {
+                            foreach ($games AS $play) {
+                                $rencontre = new Rencontre();
+                                $rencontre->setNumSemaine($round + 1);
+                                $rencontre->setEquipeDom($play["Home"]);
+                                $rencontre->setEquipeExt($play["Away"]);
+                                if($rencontre->getEquipeDom()->getId() != 0 && $rencontre->getEquipeExt()->getId() != 0) {
+                                    $em->persist($rencontre);
+                                }
+                            }
+                        }
+                    }
+                    $em->flush();
+                    $request->getSession()->getFlashBag()->add('success', "Les rencontres ont été crééééees");
+                    return $this->redirectToRoute('index');
+
+                } else {
+                    return $this->render('BackBundle:Rencontre:administration.html.twig', array(
+                        'message' => "Wrong password"
+                    ));
+                }
+            }
+        }
+        return $this->render('BackBundle:Rencontre:administration.html.twig');
+    }
+
+
 }
