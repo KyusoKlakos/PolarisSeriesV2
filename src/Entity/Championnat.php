@@ -42,6 +42,16 @@ class Championnat
      */
     private $datesNextSemaines;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $heroBanS1;
+    
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $heroBanS2;
+
 
 
     /**
@@ -125,6 +135,30 @@ class Championnat
     public function setDatesNextSemaines(?string $datesNextSemaines): self
     {
         $this->datesNextSemaines = $datesNextSemaines;
+
+        return $this;
+    }
+
+    public function getHeroBanS1(): ?string
+    {
+        return $this->heroBanS1;
+    }
+
+    public function setHeroBanS1(?string $datesNextSemaines): self
+    {
+        $this->heroBanS1 = $datesNextSemaines;
+
+        return $this;
+    }
+
+    public function getHeroBanS2(): ?string
+    {
+        return $this->heroBanS2;
+    }
+
+    public function setHeroBanS2(?string $datesNextSemaines): self
+    {
+        $this->heroBanS2 = $datesNextSemaines;
 
         return $this;
     }

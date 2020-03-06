@@ -72,6 +72,8 @@ class EquipeController extends AbstractController
         $nbSemaine = $em->getRepository(Championnat::class)->findAll()[0]->getNbSemaine();
         $datesSemaine = $em->getRepository(Championnat::class)->findAll()[0]->getDatesSemaines();
         $datesNextSemaine = $em->getRepository(Championnat::class)->findAll()[0]->getDatesNextSemaines();
+        $HeroBanS1 = $em->getRepository(Championnat::class)->findAll()[0]->getHeroBanS1();
+        $HeroBanS2 = $em->getRepository(Championnat::class)->findAll()[0]->getHeroBanS2();
         $mapPools = $em->getRepository(MapPool::class)->findAll();
         return $this->render('front/equipe/show_matchs.html.twig', [
             'rencontres'=>$rencontres,
@@ -80,7 +82,9 @@ class EquipeController extends AbstractController
             'numSemaine'=>$numSemaine,
             'nbSemaine'=>$nbSemaine,
             'datesSemaine'=>$datesSemaine,
-            'datesNextSemaine'=>$datesNextSemaine
+            'datesNextSemaine'=>$datesNextSemaine,
+            'heroBanS1' => $HeroBanS1,
+            'heroBanS2' => $HeroBanS2,
         ]);
     }
 
